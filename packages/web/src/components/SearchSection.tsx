@@ -23,7 +23,7 @@ export default function SearchSection() {
             Encuentra tu Paraíso Wellness Caribeño
           </h2>
           <p className="text-gray-600 max-w-2xl mx-auto">
-            Personaliza tu búsqueda para descubrir retiros frente al mar, spas con vista al océano 
+            Personaliza tu búsqueda para descubrir retiros en la naturaleza, spas con vista panorámica 
             y experiencias de bienestar únicas en el Caribe colombiano 🏝️
           </p>
         </div>
@@ -116,8 +116,8 @@ export default function SearchSection() {
         {/* Elementos decorativos */}
         <div className="flex justify-center mt-8 space-x-8 text-sm text-gray-500">
           <span className="flex items-center space-x-1">
-            <span>🏖️</span>
-            <span>Playas privadas</span>
+            <span>🌿</span>
+            <span>Entornos naturales</span>
           </span>
           <span className="flex items-center space-x-1">
             <span>🐠</span>

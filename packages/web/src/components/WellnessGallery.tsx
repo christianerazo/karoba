@@ -10,8 +10,8 @@ const wellnessExperiences = [
   },
   {
     id: 2,
-    title: 'Yoga al Amanecer',
-    description: 'Sesiones de yoga frente al océano',
+    title: 'Meditación Natural',
+    description: 'Sesiones de meditación en la naturaleza',
     image: '/images/wellness-2.jpeg',
     category: 'Mindfulness'
   },
@@ -31,10 +31,10 @@ const wellnessExperiences = [
   },
   {
     id: 5,
-    title: 'Hidroterapia Marina',
-    description: 'Sanación con elementos del mar',
+    title: 'Hidroterapia Natural',
+    description: 'Sanación con aguas termales',
     image: '/images/destination-3.jpeg',
-    category: 'Terapias Marinas'
+    category: 'Terapias Naturales'
   },
   {
     id: 6,

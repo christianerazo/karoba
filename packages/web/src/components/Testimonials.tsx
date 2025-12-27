@@ -16,9 +16,9 @@ const testimonials = [
     name: 'Carlos Mendoza',
     location: 'Medellín, Colombia',
     rating: 5,
-    comment: 'Las terapias marinas en Providencia superaron todas mis expectativas. El equipo de Karoba realmente entiende lo que significa el bienestar auténtico.',
+    comment: 'Las terapias naturales en Providencia superaron todas mis expectativas. El equipo de Karoba realmente entiende lo que significa el bienestar auténtico.',
     image: '/images/wellness-2.jpeg',
-    experience: 'Terapias Marinas Premium'
+    experience: 'Terapias Naturales Premium'
   },
   {
     id: 3,

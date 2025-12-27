@@ -81,7 +81,7 @@
     font-weight: 500;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    background: linear-gradient(135deg, #eab308 0%, #ca8a04 50%, #a16207 100%);
+    background: linear-gradient(135deg, #facc15 0%, #eab308 30%, #0ea5e9 70%, #0369a1 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -96,7 +96,7 @@
     left: 0;
     right: 0;
     height: 1px;
-    background: linear-gradient(90deg, transparent 0%, #ca8a04 50%, transparent 100%);
+    background: linear-gradient(90deg, transparent 0%, #eab308 30%, #0ea5e9 70%, transparent 100%);
     opacity: 0.6;
   }
   
@@ -105,7 +105,10 @@
     font-weight: 500;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: #ca8a04;
+    background: linear-gradient(90deg, #eab308 0%, #0ea5e9 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
     opacity: 0.85;
   }
   
@@ -115,13 +118,13 @@
     font-weight: 700;
     letter-spacing: 0.04em;
     text-transform: capitalize;
-    background: linear-gradient(135deg, #facc15 0%, #eab308 30%, #ca8a04 70%, #a16207 100%);
+    background: linear-gradient(135deg, #facc15 0%, #eab308 25%, #0ea5e9 75%, #0369a1 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     position: relative;
     text-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
-    filter: drop-shadow(0 1px 2px rgba(202, 138, 4, 0.15));
+    filter: drop-shadow(0 1px 2px rgba(234, 179, 8, 0.15));
   }
   
   .karoba-logo-elegant::before {
@@ -129,7 +132,10 @@
     position: absolute;
     top: 50%;
     left: -12px;
-    color: #ca8a04;
+    background: linear-gradient(135deg, #eab308 0%, #0ea5e9 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
     font-size: 0.4em;
     transform: translateY(-50%);
     opacity: 0.6;
@@ -140,7 +146,10 @@
     position: absolute;
     top: 50%;
     right: -12px;
-    color: #ca8a04;
+    background: linear-gradient(135deg, #eab308 0%, #0ea5e9 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
     font-size: 0.4em;
     transform: translateY(-50%);
     opacity: 0.6;
@@ -151,13 +160,14 @@
     font-family: 'Montserrat', sans-serif;
     font-weight: 500;
     letter-spacing: 0.05em;
-    background: linear-gradient(135deg, #eab308 0%, #ca8a04 50%, #a16207 100%);
+    background: linear-gradient(135deg, #facc15 0%, #eab308 40%, #0ea5e9 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
   }
 }
+
 @layer utilities {
   .scroll-smooth {
     scroll-behavior: smooth;
@@ -220,5 +230,250 @@
   /* Smooth momentum scrolling for webkit */
   * {
     -webkit-overflow-scrolling: touch;
+  }
+
+  /* Estilos para videos en pantalla completa - Adaptación perfecta sin pérdida de imagen */
+  video:fullscreen {
+    width: 100vw !important;
+    height: 100vh !important;
+    object-fit: contain !important;
+    background-color: #000000;
+    margin: 0 !important;
+    padding: 0 !important;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    z-index: 9999 !important;
+  }
+
+  video:-webkit-full-screen {
+    width: 100vw !important;
+    height: 100vh !important;
+    object-fit: contain !important;
+    background-color: #000000;
+    margin: 0 !important;
+    padding: 0 !important;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    z-index: 9999 !important;
+  }
+
+  video:-moz-full-screen {
+    width: 100vw !important;
+    height: 100vh !important;
+    object-fit: contain !important;
+    background-color: #000000;
+    margin: 0 !important;
+    padding: 0 !important;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    z-index: 9999 !important;
+  }
+
+  video:-ms-fullscreen {
+    width: 100vw !important;
+    height: 100vh !important;
+    object-fit: contain !important;
+    background-color: #000000;
+    margin: 0 !important;
+    padding: 0 !important;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    z-index: 9999 !important;
+  }
+
+  /* Contenedor de video adaptativo mejorado */
+  .video-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #000000;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .video-container video {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border-radius: 0.75rem;
+  }
+
+  /* Asegurar que el video mantenga su aspecto ratio en todos los navegadores */
+  .video-gallery-item {
+    aspect-ratio: 16/9;
+    background-color: #000000;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .video-gallery-item video {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 0.75rem;
+  }
+
+  /* Estilos adicionales para mejor experiencia de video */
+  video {
+    outline: none;
+  }
+
+  video:focus {
+    outline: none;
+  }
+
+  /* Controles de video personalizados */
+  video::-webkit-media-controls-panel {
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+
+  video::-webkit-media-controls-play-button {
+    background-color: rgba(251, 191, 36, 0.9);
+    border-radius: 50%;
+  }
+
+  /* Estilos para el modal de video flotante */
+  .video-modal-overlay {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  .video-modal-content {
+    max-height: 90vh;
+    max-width: 90vw;
+  }
+
+  /* Video modal adaptativo - sin pérdida de imagen */
+  .video-modal-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 50vh;
+    max-height: 90vh;
+    width: 100%;
+  }
+
+  .video-modal-container video {
+    max-width: 90vw !important;
+    max-height: 80vh !important;
+    width: auto !important;
+    height: auto !important;
+    object-fit: contain !important;
+    background-color: #000000;
+  }
+
+  /* Animaciones suaves para el modal */
+  .video-modal-enter {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+
+  .video-modal-enter-active {
+    opacity: 1;
+    transform: scale(1);
+    transition: opacity 300ms ease-out, transform 300ms ease-out;
+  }
+
+  .video-modal-exit {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .video-modal-exit-active {
+    opacity: 0;
+    transform: scale(0.9);
+    transition: opacity 200ms ease-in, transform 200ms ease-in;
+  }
+
+  /* Botón de play mejorado */
+  .play-button {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  }
+
+  .play-button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+  }
+
+  /* Efectos de hover para thumbnails de video - sin oscurecimiento */
+  .video-thumbnail {
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .video-thumbnail:hover {
+    transform: scale(1.02);
+  }
+
+  .video-thumbnail:hover img {
+    filter: brightness(1.1) saturate(1.1);
+  }
+
+  /* Efectos de hover para imágenes clickeables */
+  .image-thumbnail {
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+  }
+
+  .image-thumbnail:hover {
+    transform: scale(1.02);
+  }
+
+  .image-thumbnail:hover img {
+    filter: brightness(1.1) saturate(1.1);
+  }
+
+  /* Modal de imagen */
+  .image-modal-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 50vh;
+    max-height: 90vh;
+    width: 100%;
+  }
+
+  .image-modal-container img {
+    max-width: 90vw !important;
+    max-height: 80vh !important;
+    width: auto !important;
+    height: auto !important;
+    object-fit: contain !important;
+    cursor: zoom-in;
+  }
+
+  /* Icono de ampliar */
+  .zoom-icon {
+    transition: all 0.3s ease;
+  }
+
+  .zoom-icon:hover {
+    transform: scale(1.1);
+  }
+
+  /* Responsive video sizing */
+  @media (max-width: 768px) {
+    .video-modal-container video {
+      max-width: 95vw !important;
+      max-height: 70vh !important;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .video-modal-container video {
+      max-width: 98vw !important;
+      max-height: 60vh !important;
+    }
   }
 }

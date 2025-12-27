@@ -62,10 +62,16 @@ export default function Header() {
 
           {/* Navigation - Desktop */}
           <nav className="hidden md:flex space-x-10">
-            <Link href="/destinations" className={`font-medium relative group transition-all duration-300 ${
+            <Link href="/pasadia" className={`font-medium relative group transition-all duration-300 ${
               isScrolled ? 'text-dark-700 hover:text-blue-600' : 'text-white hover:text-gold-300'
             }`}>
-              Destinos Wellness
+              Pasadía
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-gold-400 to-blue-500 transition-all duration-300 group-hover:w-full"></span>
+            </Link>
+            <Link href="/tours" className={`font-medium relative group transition-all duration-300 ${
+              isScrolled ? 'text-dark-700 hover:text-blue-600' : 'text-white hover:text-gold-300'
+            }`}>
+              Tours
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-gold-400 to-blue-500 transition-all duration-300 group-hover:w-full"></span>
             </Link>
             <Link href="/bookings" className={`font-medium relative group transition-all duration-300 ${
@@ -125,7 +131,7 @@ export default function Header() {
           }`}>
             <div className="px-4 pt-2 pb-3 space-y-1">
               <Link 
-                href="/destinations" 
+                href="/pasadia" 
                 className={`block px-4 py-3 font-medium transition-all duration-300 rounded-lg ${
                   isScrolled 
                     ? 'text-dark-700 hover:text-blue-600 hover:bg-blue-50' 
@@ -133,7 +139,18 @@ export default function Header() {
                 }`}
                 onClick={() => setIsMenuOpen(false)}
               >
-                Destinos Wellness
+                Pasadía
+              </Link>
+              <Link 
+                href="/tours" 
+                className={`block px-4 py-3 font-medium transition-all duration-300 rounded-lg ${
+                  isScrolled 
+                    ? 'text-dark-700 hover:text-blue-600 hover:bg-blue-50' 
+                    : 'text-white hover:text-gold-300 hover:bg-white/10'
+                }`}
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Tours
               </Link>
               <Link 
                 href="/bookings" 

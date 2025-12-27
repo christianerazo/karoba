@@ -116,22 +116,22 @@ export default function Hero() {
                 <div className="w-16 h-16 bg-gradient-to-br from-gold-400 to-blue-500 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
                   <span className="text-2xl">🧘‍♀️</span>
                 </div>
-                <h3 className="text-lg font-semibold text-gold-300 mb-2">Yoga Frente al Mar</h3>
-                <p className="text-gray-300">Reconecta con el sonido de las olas</p>
+                <h3 className="text-lg font-semibold text-gold-300 mb-2">Meditación Natural</h3>
+                <p className="text-gray-300">Reconecta con el sonido de la naturaleza</p>
               </div>
               <div className="text-center group backdrop-blur-sm bg-white/5 rounded-2xl p-6 hover:bg-white/10 transition-all duration-300">
                 <div className="w-16 h-16 bg-gradient-to-br from-blue-400 to-gold-500 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
                   <span className="text-2xl">🏝️</span>
                 </div>
-                <h3 className="text-lg font-semibold text-blue-300 mb-2">Islas Privadas</h3>
-                <p className="text-gray-300">Sanación en paraísos exclusivos</p>
+                <h3 className="text-lg font-semibold text-blue-300 mb-2">Retiros Exclusivos</h3>
+                <p className="text-gray-300">Sanación en paraísos naturales</p>
               </div>
               <div className="text-center group backdrop-blur-sm bg-white/5 rounded-2xl p-6 hover:bg-white/10 transition-all duration-300">
                 <div className="w-16 h-16 bg-gradient-to-br from-gold-400 to-blue-500 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
                   <span className="text-2xl">🐚</span>
                 </div>
-                <h3 className="text-lg font-semibold text-gold-300 mb-2">Terapias Marinas</h3>
-                <p className="text-gray-300">Tratamientos con elementos del mar</p>
+                <h3 className="text-lg font-semibold text-gold-300 mb-2">Terapias Ancestrales</h3>
+                <p className="text-gray-300">Tratamientos con sabiduría milenaria</p>
               </div>
             </div>
           </div>

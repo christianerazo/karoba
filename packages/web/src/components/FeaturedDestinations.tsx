@@ -22,18 +22,18 @@ const featuredDestinations = [
     rating: 4.9,
     price: 650,
     currency: 'USD',
-    category: 'Isla Privada'
+    category: 'Retiro Exclusivo'
   },
   {
     id: '2',
-    name: 'Spa Frente al Mar - Providencia',
+    name: 'Spa Natural - Providencia',
     city: 'San Andrés y Providencia',
     country: 'Colombia',
     image: '/images/destination-2.jpeg',
     rating: 4.8,
     price: 480,
     currency: 'USD',
-    category: 'Terapias Marinas'
+    category: 'Terapias Naturales'
   },
   {
     id: '3',
@@ -153,8 +153,8 @@ export default function FeaturedDestinations() {
             <span>Gastronomía local</span>
           </div>
           <div className="text-center">
-            <div className="text-2xl mb-2">🏖️</div>
-            <span>Playas privadas</span>
+            <div className="text-2xl mb-2">🌿</div>
+            <span>Entornos naturales</span>
           </div>
           <div className="text-center">
             <div className="text-2xl mb-2">🌺</div>
