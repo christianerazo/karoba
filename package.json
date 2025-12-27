@@ -1,0 +1,31 @@
+{
+  "name": "tourism-app",
+  "version": "1.0.0",
+  "description": "App de turismo multiplataforma - móvil y web",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "test": "turbo run test",
+    "lint": "turbo run lint",
+    "clean": "turbo run clean",
+    "mobile": "cd packages/mobile && npm run start",
+    "web": "cd packages/web && npm run dev",
+    "api": "cd packages/api && npm run dev"
+  },
+  "devDependencies": {
+    "turbo": "^1.10.0",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "eslint": "^8.45.0",
+    "eslint-config-prettier": "^8.8.0",
+    "prettier": "^3.0.0",
+    "typescript": "^5.1.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

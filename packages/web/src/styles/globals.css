@@ -1,0 +1,224 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&display=swap');
+
+@layer base {
+  html {
+    font-family: 'Inter', sans-serif;
+  }
+  
+  body {
+    @apply bg-gradient-to-br from-white via-blue-50 to-gold-50 text-dark-900;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5;
+  }
+  
+  .btn-gold {
+    @apply bg-gradient-to-r from-gold-500 to-gold-600 hover:from-gold-600 hover:to-gold-700 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5;
+  }
+  
+  .btn-dark {
+    @apply bg-gradient-to-r from-dark-800 to-dark-900 hover:from-dark-900 hover:to-dark-800 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5;
+  }
+  
+  .btn-secondary {
+    @apply bg-white hover:bg-gray-50 text-dark-800 font-semibold py-3 px-6 rounded-lg transition-all duration-300 shadow-md hover:shadow-lg border border-dark-200;
+  }
+  
+  .card {
+    @apply bg-white rounded-xl shadow-lg p-6 border border-blue-100/50 hover:shadow-xl transition-all duration-300;
+  }
+  
+  .card-premium {
+    @apply bg-gradient-to-br from-white to-blue-50/30 rounded-xl shadow-xl p-6 border border-blue-200/50 hover:shadow-2xl transition-all duration-300;
+  }
+  
+  .card-luxury {
+    @apply bg-gradient-to-br from-white via-gold-50/20 to-blue-50/30 rounded-xl shadow-xl p-6 border border-gold-200/50 hover:shadow-2xl transition-all duration-300;
+  }
+  
+  .input {
+    @apply w-full px-4 py-3 border border-blue-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-400 focus:border-transparent transition-all duration-200 bg-white;
+  }
+  
+  .text-gradient {
+    @apply text-gold-600;
+  }
+  
+  .text-gradient-hero {
+    @apply bg-gradient-to-r from-blue-400 via-gold-500 to-blue-500 bg-clip-text text-transparent;
+  }
+  
+  .text-gradient-luxury {
+    @apply bg-gradient-to-r from-gold-500 to-blue-600 bg-clip-text text-transparent;
+  }
+  
+  .luxury-pattern {
+    background-image: radial-gradient(circle at 25% 25%, rgba(251, 191, 36, 0.1) 0%, transparent 50%),
+                      radial-gradient(circle at 75% 75%, rgba(14, 165, 233, 0.1) 0%, transparent 50%);
+  }
+  
+  .ocean-wave {
+    background: linear-gradient(45deg, transparent 33%, rgba(14, 165, 233, 0.1) 33%, rgba(14, 165, 233, 0.1) 66%, transparent 66%);
+    background-size: 20px 20px;
+  }
+  
+  /* Estilos específicos para el logo Karoba - Versión relajada y sofisticada */
+  .karoba-logo {
+    font-family: 'Lora', serif;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    background: linear-gradient(135deg, #eab308 0%, #ca8a04 50%, #a16207 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: relative;
+  }
+  
+  .karoba-logo::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, #ca8a04 50%, transparent 100%);
+    opacity: 0.6;
+  }
+  
+  .karoba-subtitle {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #ca8a04;
+    opacity: 0.85;
+  }
+  
+  /* Variante elegante principal para el logo - Estilo relajado */
+  .karoba-logo-elegant {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: capitalize;
+    background: linear-gradient(135deg, #facc15 0%, #eab308 30%, #ca8a04 70%, #a16207 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    position: relative;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    filter: drop-shadow(0 1px 2px rgba(202, 138, 4, 0.15));
+  }
+  
+  .karoba-logo-elegant::before {
+    content: '•';
+    position: absolute;
+    top: 50%;
+    left: -12px;
+    color: #ca8a04;
+    font-size: 0.4em;
+    transform: translateY(-50%);
+    opacity: 0.6;
+  }
+  
+  .karoba-logo-elegant::after {
+    content: '•';
+    position: absolute;
+    top: 50%;
+    right: -12px;
+    color: #ca8a04;
+    font-size: 0.4em;
+    transform: translateY(-50%);
+    opacity: 0.6;
+  }
+  
+  /* Variante para uso en contenido (sin decoraciones) */
+  .karoba-brand {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    background: linear-gradient(135deg, #eab308 0%, #ca8a04 50%, #a16207 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+  }
+}
+@layer utilities {
+  .scroll-smooth {
+    scroll-behavior: smooth;
+  }
+  
+  .parallax-slow {
+    transform: translate3d(0, var(--scroll-y, 0), 0);
+    will-change: transform;
+  }
+  
+  .fade-in-up {
+    opacity: 0;
+    transform: translate3d(0, 60px, 0);
+    transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  
+  .fade-in-up.visible {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+  
+  .scale-in {
+    opacity: 0;
+    transform: scale(0.9);
+    transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  
+  .scale-in.visible {
+    opacity: 1;
+    transform: scale(1);
+  }
+  
+  .slide-in-left {
+    opacity: 0;
+    transform: translate3d(-60px, 0, 0);
+    transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  
+  .slide-in-left.visible {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+  
+  .slide-in-right {
+    opacity: 0;
+    transform: translate3d(60px, 0, 0);
+    transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  
+  .slide-in-right.visible {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+  
+  /* Apple-style smooth scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  /* Smooth momentum scrolling for webkit */
+  * {
+    -webkit-overflow-scrolling: touch;
+  }
+}
