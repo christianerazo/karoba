@@ -3,6 +3,9 @@ import Head from 'next/head';
 import Layout from '../../components/Layout';
 import { TrashIcon, PencilIcon, EyeIcon } from '@heroicons/react/24/outline';
 
+// Configuración de la API
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
+
 interface User {
   id: string;
   firstName: string;
@@ -31,7 +34,7 @@ export default function AdminUsers() {
 
   const fetchUsers = async () => {
     try {
-      const response = await fetch('/api/users');
+      const response = await fetch(`${API_URL}/api/users`);
       if (response.ok) {
         const data = await response.json();
         setUsers(data);
@@ -49,7 +52,7 @@ export default function AdminUsers() {
     }
 
     try {
-      const response = await fetch(`/api/users/${id}`, {
+      const response = await fetch(`${API_URL}/api/users/${id}`, {
         method: 'DELETE',
       });
 

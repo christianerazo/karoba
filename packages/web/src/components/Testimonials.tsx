@@ -1,121 +1,116 @@
-import Image from 'next/image';
+import Link from 'next/link';
 import { StarIcon } from '@heroicons/react/24/solid';
-
-const testimonials = [
-  {
-    id: 1,
-    name: 'María Elena Rodríguez',
-    location: 'Bogotá, Colombia',
-    rating: 5,
-    comment: 'Mi experiencia en las Islas del Rosario fue transformadora. El retiro de wellness me ayudó a reconectar conmigo misma de una manera que nunca pensé posible.',
-    image: '/images/wellness-1.jpeg',
-    experience: 'Retiro Wellness 7 días'
-  },
-  {
-    id: 2,
-    name: 'Carlos Mendoza',
-    location: 'Medellín, Colombia',
-    rating: 5,
-    comment: 'Las terapias naturales en Providencia superaron todas mis expectativas. El equipo de Karoba realmente entiende lo que significa el bienestar auténtico.',
-    image: '/images/wellness-2.jpeg',
-    experience: 'Terapias Naturales Premium'
-  },
-  {
-    id: 3,
-    name: 'Ana Sofía Herrera',
-    location: 'Cali, Colombia',
-    rating: 5,
-    comment: 'Cada detalle fue perfecto. Desde el yoga al amanecer hasta los tratamientos con medicina ancestral. Una experiencia que cambió mi perspectiva de vida.',
-    image: '/images/destination-1.jpeg',
-    experience: 'Medicina Ancestral & Yoga'
-  }
-];
+import { useLanguage } from '../contexts/LanguageContext';
 
 export default function Testimonials() {
+  const { t } = useLanguage();
+
+  const testimonials = [
+    {
+      id: 1,
+      name: 'María Elena Rodríguez',
+      location: 'Bogotá, Colombia',
+      rating: 5,
+      comment: t('testimonials.maria.comment'),
+      experience: 'Pasadía Coral Sand'
+    },
+    {
+      id: 2,
+      name: 'Carlos Mendoza',
+      location: 'Medellín, Colombia',
+      rating: 5,
+      comment: t('testimonials.carlos.comment'),
+      experience: 'Pasadía Islas del Rosario'
+    },
+    {
+      id: 3,
+      name: 'Ana Sofía Herrera',
+      location: 'Cali, Colombia',
+      rating: 5,
+      comment: t('testimonials.ana.comment'),
+      experience: 'Experiencia Coral Sand'
+    }
+  ];
+
+  const stats = [
+    { number: '200+', label: t('stats.guests'), color: 'text-blue-600' },
+    { number: '4.9', label: t('stats.rating'), color: 'text-gold-600' },
+    { number: '1', label: t('stats.destination'), color: 'text-blue-600' },
+    { number: '98%', label: t('stats.recommend'), color: 'text-gold-600' }
+  ];
   return (
     <section className="py-20 bg-gradient-to-br from-dark-50 via-blue-50/50 to-gold-50/30 luxury-pattern">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
+        {/* Header simplificado */}
+        <div className="text-center mb-16 animate-fade-in-up">
           <div className="inline-block px-6 py-2 bg-gold-100 text-gold-700 rounded-full text-sm font-semibold tracking-wide mb-6">
-            💫 TESTIMONIOS REALES
+            {t('testimonials.badge')}
           </div>
           <h2 className="text-4xl md:text-5xl font-bold text-dark-800 mb-6">
-            Historias de
-            <span className="block text-gradient-luxury">Transformación</span>
+            {t('testimonials.title')}
+            <span className="block text-gradient-luxury">{t('testimonials.subtitle')}</span>
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Descubre cómo nuestros huéspedes han encontrado su camino hacia el bienestar 
-            auténtico en los paraísos del Caribe colombiano
+            {t('testimonials.description')}
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        {/* Testimonials Grid simplificado */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16 animate-fade-in" style={{ animationDelay: '0.3s' }}>
           {testimonials.map((testimonial) => (
-            <div
-              key={testimonial.id}
-              className="card-luxury hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2"
-            >
-              {/* Image */}
-              <div className="relative h-48 mb-6 rounded-xl overflow-hidden">
-                <Image
-                  src={testimonial.image}
-                  alt={`Experiencia de ${testimonial.name}`}
-                  fill
-                  className="object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-dark-900/60 to-transparent"></div>
-                <div className="absolute bottom-4 left-4">
-                  <span className="bg-gold-500 text-white px-3 py-1 rounded-full text-xs font-semibold">
-                    {testimonial.experience}
-                  </span>
-                </div>
-              </div>
-
-              {/* Rating */}
+            <div key={testimonial.id} className="card-luxury hover:shadow-2xl transition-all duration-300 hover:scale-105">
               <div className="flex items-center mb-4">
                 {[...Array(testimonial.rating)].map((_, i) => (
-                  <StarIcon key={i} className="h-5 w-5 text-gold-400" />
+                  <StarIcon key={i} className="h-5 w-5 text-gold-500" />
                 ))}
               </div>
-
-              {/* Comment */}
+              
               <blockquote className="text-gray-700 mb-6 italic leading-relaxed">
                 "{testimonial.comment}"
               </blockquote>
-
-              {/* Author */}
-              <div className="border-t border-gray-200 pt-4">
-                <div className="flex items-center">
-                  <div className="w-12 h-12 bg-gradient-to-br from-blue-400 to-gold-500 rounded-full flex items-center justify-center text-white font-bold text-lg">
+              
+              <div className="flex items-center">
+                <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-gold-500 rounded-full flex items-center justify-center mr-4">
+                  <span className="text-white font-bold text-lg">
                     {testimonial.name.charAt(0)}
-                  </div>
-                  <div className="ml-4">
-                    <h4 className="font-semibold text-dark-800">{testimonial.name}</h4>
-                    <p className="text-sm text-gray-600">{testimonial.location}</p>
-                  </div>
+                  </span>
+                </div>
+                <div>
+                  <h4 className="font-semibold text-dark-800">{testimonial.name}</h4>
+                  <p className="text-sm text-gray-600">{testimonial.location}</p>
+                  <p className="text-xs text-blue-600 font-medium">{testimonial.experience}</p>
                 </div>
               </div>
             </div>
           ))}
         </div>
 
-        {/* Stats */}
-        <div className="mt-16 grid grid-cols-1 md:grid-cols-4 gap-8">
-          <div className="text-center">
-            <div className="text-4xl font-bold text-blue-600 mb-2">500+</div>
-            <div className="text-gray-600">Huéspedes Transformados</div>
-          </div>
-          <div className="text-center">
-            <div className="text-4xl font-bold text-gold-600 mb-2">4.9</div>
-            <div className="text-gray-600">Calificación Promedio</div>
-          </div>
-          <div className="text-center">
-            <div className="text-4xl font-bold text-blue-600 mb-2">15+</div>
-            <div className="text-gray-600">Destinos Exclusivos</div>
-          </div>
-          <div className="text-center">
-            <div className="text-4xl font-bold text-gold-600 mb-2">98%</div>
-            <div className="text-gray-600">Recomendarían Karoba</div>
+        {/* Stats section simplificado */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 animate-fade-in" style={{ animationDelay: '0.5s' }}>
+          {stats.map((stat, index) => (
+            <div key={index} className="text-center group">
+              <div className={`text-4xl md:text-5xl font-bold mb-2 ${stat.color} group-hover:scale-110 transition-transform duration-300`}>
+                {stat.number}
+              </div>
+              <p className="text-gray-600 font-medium group-hover:text-gray-800 transition-colors duration-300">
+                {stat.label}
+              </p>
+            </div>
+          ))}
+        </div>
+
+        {/* CTA simplificado */}
+        <div className="text-center mt-16 animate-fade-in" style={{ animationDelay: '0.7s' }}>
+          <div className="bg-gradient-to-r from-blue-600 to-gold-500 rounded-2xl p-8 text-white hover:scale-105 transition-all duration-300">
+            <h3 className="text-2xl md:text-3xl font-bold mb-4">
+              {t('testimonials.cta.title')}
+            </h3>
+            <p className="text-lg mb-6 max-w-2xl mx-auto opacity-90">
+              {t('testimonials.cta.description')}
+            </p>
+            <Link href="/pasadia" className="bg-white text-blue-600 hover:bg-gray-100 font-semibold py-3 px-8 rounded-lg transition-all duration-300 hover:scale-105">
+              {t('testimonials.cta.button')}
+            </Link>
           </div>
         </div>
       </div>

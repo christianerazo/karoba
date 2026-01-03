@@ -1,5 +1,22 @@
 import { Router } from 'express';
-import { ApiResponse, Review } from '@tourism-app/shared';
+
+interface Review {
+  id: string;
+  userId: string;
+  destinationId: string;
+  rating: number;
+  comment: string;
+  images?: string[];
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+interface ApiResponse<T> {
+  success: boolean;
+  data?: T;
+  error?: string;
+  message?: string;
+}
 
 const router = Router();
 

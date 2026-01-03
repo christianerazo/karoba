@@ -1,8 +1,13 @@
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
+import LanguageSwitch from './LanguageSwitch';
+import { useLanguage } from '../contexts/LanguageContext';
+import { useAuth } from '../contexts/AuthContext';
 
 export default function Header() {
+  const { t } = useLanguage();
+  const { user, isAuthenticated, logout } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -16,13 +21,26 @@ export default function Header() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const handleLogout = () => {
+    logout();
+    setIsMenuOpen(false);
+  };
+
   return (
     <header 
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        isScrolled 
-          ? 'bg-white/95 backdrop-blur-xl shadow-2xl border-b border-gold-200/50' 
-          : 'bg-gradient-to-r from-dark-900/90 via-dark-800/90 to-dark-900/90 backdrop-blur-md border-b border-gold-400/20'
-      }`}
+      className="header-fixed"
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        zIndex: 9999,
+        width: '100%',
+        backgroundColor: isScrolled ? 'rgba(255, 255, 255, 0.95)' : 'rgba(15, 23, 42, 0.9)',
+        backdropFilter: 'blur(12px)',
+        borderBottom: isScrolled ? '1px solid rgba(251, 191, 36, 0.2)' : '1px solid rgba(251, 191, 36, 0.1)',
+        transition: 'all 0.3s ease'
+      }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className={`flex justify-between items-center transition-all duration-500 ${
@@ -36,7 +54,7 @@ export default function Header() {
               }`}>
                 {/* Logo image */}
                 <img 
-                  src="/images/karoba-logo.jpeg?v=2" 
+                  src="/images/logo.jpeg" 
                   alt="Karoba Wellness Travel Colombia Logo"
                   className={`transition-all duration-500 rounded-xl object-cover shadow-lg ${
                     isScrolled ? 'w-10 h-10' : 'w-12 h-12'
@@ -65,44 +83,64 @@ export default function Header() {
             <Link href="/pasadia" className={`font-medium relative group transition-all duration-300 ${
               isScrolled ? 'text-dark-700 hover:text-blue-600' : 'text-white hover:text-gold-300'
             }`}>
-              Pasadía
+              {t('nav.pasadia')}
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-gold-400 to-blue-500 transition-all duration-300 group-hover:w-full"></span>
             </Link>
-            <Link href="/tours" className={`font-medium relative group transition-all duration-300 ${
+            <Link href="/nosotros" className={`font-medium relative group transition-all duration-300 ${
               isScrolled ? 'text-dark-700 hover:text-blue-600' : 'text-white hover:text-gold-300'
             }`}>
-              Tours
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-gold-400 to-blue-500 transition-all duration-300 group-hover:w-full"></span>
-            </Link>
-            <Link href="/bookings" className={`font-medium relative group transition-all duration-300 ${
-              isScrolled ? 'text-dark-700 hover:text-blue-600' : 'text-white hover:text-gold-300'
-            }`}>
-              Mis Experiencias
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-gold-400 to-blue-500 transition-all duration-300 group-hover:w-full"></span>
-            </Link>
-            <Link href="/about" className={`font-medium relative group transition-all duration-300 ${
-              isScrolled ? 'text-dark-700 hover:text-blue-600' : 'text-white hover:text-gold-300'
-            }`}>
-              Nosotros
+              {t('nav.about')}
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-gold-400 to-blue-500 transition-all duration-300 group-hover:w-full"></span>
             </Link>
           </nav>
 
-          {/* Auth buttons - Desktop */}
+          {/* Language Switch & Auth buttons - Desktop */}
           <div className="hidden md:flex items-center space-x-6">
-            <Link href="/login" className={`font-medium transition-all duration-300 ${
-              isScrolled ? 'text-dark-700 hover:text-blue-600' : 'text-white hover:text-gold-300'
-            }`}>
-              Iniciar Sesión
-            </Link>
-            <Link href="/register" className={`btn-gold transition-all duration-500 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 ${
-              isScrolled ? 'px-6 py-2.5 text-sm' : 'px-8 py-3'
-            }`}>
-              <span className="flex items-center space-x-2">
-                <span>Únete a Karoba</span>
-                <span className="text-lg">✨</span>
-              </span>
-            </Link>
+            <LanguageSwitch isScrolled={isScrolled} />
+            
+            {isAuthenticated ? (
+              <div className="flex items-center space-x-4">
+                <span className={`text-sm font-medium ${
+                  isScrolled ? 'text-dark-700' : 'text-white'
+                }`}>
+                  Hola, {user?.firstName}
+                </span>
+                {user?.email === 'admin@karoba.com' && (
+                  <Link 
+                    href="/admin/dashboard" 
+                    className={`font-medium transition-all duration-300 ${
+                      isScrolled ? 'text-blue-600 hover:text-blue-700' : 'text-gold-300 hover:text-gold-200'
+                    }`}
+                  >
+                    👑 Admin
+                  </Link>
+                )}
+                <button
+                  onClick={handleLogout}
+                  className={`font-medium transition-all duration-300 ${
+                    isScrolled ? 'text-dark-700 hover:text-blue-600' : 'text-white hover:text-gold-300'
+                  }`}
+                >
+                  {t('auth.logout')}
+                </button>
+              </div>
+            ) : (
+              <>
+                <Link href="/login" className={`font-medium transition-all duration-300 ${
+                  isScrolled ? 'text-dark-700 hover:text-blue-600' : 'text-white hover:text-gold-300'
+                }`}>
+                  {t('nav.login')}
+                </Link>
+                <Link href="/register" className={`btn-gold transition-all duration-500 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 ${
+                  isScrolled ? 'px-6 py-2.5 text-sm' : 'px-8 py-3'
+                }`}>
+                  <span className="flex items-center space-x-2">
+                    <span>{t('nav.register')}</span>
+                    <span className="text-lg">✨</span>
+                  </span>
+                </Link>
+              </>
+            )}
           </div>
 
           {/* Mobile menu button */}
@@ -139,10 +177,10 @@ export default function Header() {
                 }`}
                 onClick={() => setIsMenuOpen(false)}
               >
-                Pasadía
+                {t('nav.pasadia')}
               </Link>
               <Link 
-                href="/tours" 
+                href="/nosotros" 
                 className={`block px-4 py-3 font-medium transition-all duration-300 rounded-lg ${
                   isScrolled 
                     ? 'text-dark-700 hover:text-blue-600 hover:bg-blue-50' 
@@ -150,52 +188,74 @@ export default function Header() {
                 }`}
                 onClick={() => setIsMenuOpen(false)}
               >
-                Tours
+                {t('nav.about')}
               </Link>
-              <Link 
-                href="/bookings" 
-                className={`block px-4 py-3 font-medium transition-all duration-300 rounded-lg ${
-                  isScrolled 
-                    ? 'text-dark-700 hover:text-blue-600 hover:bg-blue-50' 
-                    : 'text-white hover:text-gold-300 hover:bg-white/10'
-                }`}
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Mis Experiencias
-              </Link>
-              <Link 
-                href="/about" 
-                className={`block px-4 py-3 font-medium transition-all duration-300 rounded-lg ${
-                  isScrolled 
-                    ? 'text-dark-700 hover:text-blue-600 hover:bg-blue-50' 
-                    : 'text-white hover:text-gold-300 hover:bg-white/10'
-                }`}
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Nosotros
-              </Link>
+              
+              {/* Language Switch Mobile */}
+              <div className="px-4 py-3">
+                <LanguageSwitch isScrolled={isScrolled} />
+              </div>
+              
               <div className="border-t border-gold-200/30 my-2"></div>
-              <Link 
-                href="/login" 
-                className={`block px-4 py-3 font-medium transition-all duration-300 rounded-lg ${
-                  isScrolled 
-                    ? 'text-dark-700 hover:text-blue-600 hover:bg-blue-50' 
-                    : 'text-white hover:text-gold-300 hover:bg-white/10'
-                }`}
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Iniciar Sesión
-              </Link>
-              <Link 
-                href="/register" 
-                className="block px-4 py-3 btn-gold text-center transition-all duration-300 mx-2 mb-2"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                <span className="flex items-center justify-center space-x-2">
-                  <span>Únete a Karoba</span>
-                  <span className="text-lg">✨</span>
-                </span>
-              </Link>
+              
+              {isAuthenticated ? (
+                <>
+                  <div className="px-4 py-3">
+                    <span className={`text-sm font-medium ${
+                      isScrolled ? 'text-dark-700' : 'text-white'
+                    }`}>
+                      Hola, {user?.firstName}
+                    </span>
+                  </div>
+                  {user?.email === 'admin@karoba.com' && (
+                    <Link 
+                      href="/admin/dashboard"
+                      className={`block px-4 py-3 font-medium transition-all duration-300 rounded-lg ${
+                        isScrolled 
+                          ? 'text-blue-600 hover:text-blue-700 hover:bg-blue-50' 
+                          : 'text-gold-300 hover:text-gold-200 hover:bg-white/10'
+                      }`}
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      👑 Panel de Administración
+                    </Link>
+                  )}
+                  <button 
+                    onClick={handleLogout}
+                    className={`block w-full text-left px-4 py-3 font-medium transition-all duration-300 rounded-lg ${
+                      isScrolled 
+                        ? 'text-dark-700 hover:text-blue-600 hover:bg-blue-50' 
+                        : 'text-white hover:text-gold-300 hover:bg-white/10'
+                    }`}
+                  >
+                    {t('auth.logout')}
+                  </button>
+                </>
+              ) : (
+                <>
+                  <Link 
+                    href="/login" 
+                    className={`block px-4 py-3 font-medium transition-all duration-300 rounded-lg ${
+                      isScrolled 
+                        ? 'text-dark-700 hover:text-blue-600 hover:bg-blue-50' 
+                        : 'text-white hover:text-gold-300 hover:bg-white/10'
+                    }`}
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    {t('nav.login')}
+                  </Link>
+                  <Link 
+                    href="/register" 
+                    className="block px-4 py-3 btn-gold text-center transition-all duration-300 mx-2 mb-2"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    <span className="flex items-center justify-center space-x-2">
+                      <span>{t('nav.register')}</span>
+                      <span className="text-lg">✨</span>
+                    </span>
+                  </Link>
+                </>
+              )}
             </div>
           </div>
         )}

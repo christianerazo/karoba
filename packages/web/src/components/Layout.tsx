@@ -1,4 +1,4 @@
-import { ReactNode, useEffect } from 'react';
+import { ReactNode, useEffect, useCallback } from 'react';
 import Header from './Header';
 import Footer from './Footer';
 
@@ -7,55 +7,40 @@ interface LayoutProps {
 }
 
 export default function Layout({ children }: LayoutProps) {
+  const handleIntersection = useCallback((entries: IntersectionObserverEntry[]) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, []);
+
   useEffect(() => {
-    // Smooth scrolling setup
+    // Configuración básica de scroll - SIN bloqueos
     document.documentElement.style.scrollBehavior = 'smooth';
+    document.body.style.overscrollBehavior = 'auto'; // Permitir scroll normal
     
-    // Intersection Observer for scroll animations
-    const observerOptions = {
+    // Intersection Observer básico
+    const observer = new IntersectionObserver(handleIntersection, {
       threshold: 0.1,
-      rootMargin: '-50px',
-    };
+      rootMargin: '-20px',
+    });
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
-      });
-    }, observerOptions);
-
-    // Observe all elements with animation classes
-    const animatedElements = document.querySelectorAll(
-      '.fade-in-up, .scale-in, .slide-in-left, .slide-in-right'
-    );
-    
-    animatedElements.forEach((el) => observer.observe(el));
-
-    // Parallax effect for scroll
-    const handleScroll = () => {
-      const scrolled = window.pageYOffset;
-      const parallaxElements = document.querySelectorAll('.parallax-slow');
-      
-      parallaxElements.forEach((element) => {
-        const speed = 0.5;
-        const yPos = -(scrolled * speed);
-        (element as HTMLElement).style.setProperty('--scroll-y', `${yPos}px`);
-      });
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
+    // Observar elementos de animación
+    const animatedElements = document.querySelectorAll('.fade-in-up, .scale-in, .slide-in-left, .slide-in-right');
+    animatedElements.forEach((el) => {
+      observer.observe(el);
+    });
 
     return () => {
       observer.disconnect();
-      window.removeEventListener('scroll', handleScroll);
     };
-  }, []);
+  }, [handleIntersection]);
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col relative">
       <Header />
-      <main className="flex-1 pt-20">
+      <main className="flex-1" style={{ paddingTop: '80px' }}>
         {children}
       </main>
       <Footer />

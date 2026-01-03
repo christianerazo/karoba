@@ -1,6 +1,7 @@
 import { Fragment, useRef, useEffect } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
+import { useLanguage } from '../contexts/LanguageContext';
 
 interface VideoModalProps {
   isOpen: boolean;
@@ -8,6 +9,7 @@ interface VideoModalProps {
 }
 
 export default function VideoModal({ isOpen, onClose }: VideoModalProps) {
+  const { t } = useLanguage();
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
@@ -53,10 +55,10 @@ export default function VideoModal({ isOpen, onClose }: VideoModalProps) {
                       as="h3"
                       className="text-2xl font-bold leading-6 text-white mb-2"
                     >
-                      🏝️ Descubre el Paraíso Wellness de Karoba
+                      {t('video.modal.title')}
                     </Dialog.Title>
                     <p className="text-gold-300 text-sm">
-                      Experiencias auténticas en el Caribe colombiano
+                      {t('video.modal.subtitle')}
                     </p>
                   </div>
                   <button
@@ -64,7 +66,7 @@ export default function VideoModal({ isOpen, onClose }: VideoModalProps) {
                     className="rounded-full bg-white/10 p-3 text-white hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-gold-500 transition-all duration-200 hover:scale-110"
                     onClick={onClose}
                   >
-                    <span className="sr-only">Cerrar</span>
+                    <span className="sr-only">{t('modal.close')}</span>
                     <XMarkIcon className="h-6 w-6" aria-hidden="true" />
                   </button>
                 </div>
@@ -79,7 +81,7 @@ export default function VideoModal({ isOpen, onClose }: VideoModalProps) {
                     poster="/images/hero-bg.jpeg"
                   >
                     <source src="/images/karoba-video.mp4" type="video/mp4" />
-                    Tu navegador no soporta la reproducción de video.
+                    {t('gallery.video.unsupported')}
                   </video>
                   
                   {/* Video overlay gradient */}
@@ -90,9 +92,7 @@ export default function VideoModal({ isOpen, onClose }: VideoModalProps) {
                 <div className="mt-8 text-center">
                   <div className="bg-gradient-to-r from-blue-900/50 to-gold-900/50 rounded-xl p-6 backdrop-blur-sm border border-gold-400/20">
                     <p className="text-gray-200 mb-6 text-lg leading-relaxed">
-                      Sumérgete en la experiencia completa de wellness que Karoba tiene para ofrecerte 
-                      en los destinos más exclusivos del Caribe colombiano. Descubre cómo transformamos 
-                      vidas a través del bienestar auténtico.
+                      {t('video.modal.description')}
                     </p>
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
                       <button 
@@ -101,7 +101,7 @@ export default function VideoModal({ isOpen, onClose }: VideoModalProps) {
                       >
                         <span className="flex items-center space-x-2">
                           <span>🌊</span>
-                          <span>Reservar Mi Experiencia</span>
+                          <span>{t('video.modal.reserve')}</span>
                         </span>
                       </button>
                       <button 
@@ -110,7 +110,7 @@ export default function VideoModal({ isOpen, onClose }: VideoModalProps) {
                       >
                         <span className="flex items-center space-x-2">
                           <span>📞</span>
-                          <span>Contactar Asesor VIP</span>
+                          <span>{t('video.modal.contact')}</span>
                         </span>
                       </button>
                     </div>

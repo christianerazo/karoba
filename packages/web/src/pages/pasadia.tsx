@@ -2,7 +2,9 @@ import Head from 'next/head';
 import Layout from '../components/Layout';
 import VideoGalleryModal from '../components/VideoGalleryModal';
 import ImageModal from '../components/ImageModal';
+import GalleryModal from '../components/GalleryModal';
 import { useState } from 'react';
+import { useLanguage } from '../contexts/LanguageContext';
 import { 
   ClockIcon, 
   MapPinIcon, 
@@ -15,28 +17,18 @@ import {
 import { PhoneIcon, EnvelopeIcon } from '@heroicons/react/24/outline';
 
 export default function Pasadia() {
-  const [selectedVideo, setSelectedVideo] = useState<{
-    src: string;
-    title: string;
-    description: string;
-    thumbnail: string;
-  } | null>(null);
-
-  const [selectedImage, setSelectedImage] = useState<{
-    src: string;
-    title: string;
-    description: string;
-  } | null>(null);
+  const { t } = useLanguage();
+  const [selectedGalleryIndex, setSelectedGalleryIndex] = useState<number | null>(null);
 
   const images = [
     {
       src: "/images/islas-rosario/rosario-1.jpeg",
-      title: "Aguas Cristalinas - Islas del Rosario",
+      title: t('pasadia.gallery.photo1'),
       description: "Vista panorámica de las aguas cristalinas y la belleza natural de las Islas del Rosario, un paraíso caribeño único."
     },
     {
       src: "/images/islas-rosario/rosario-2.jpeg", 
-      title: "Paraíso Caribeño - Coral Sand",
+      title: t('pasadia.gallery.photo2'),
       description: "Instalaciones del hotel Coral Sand donde disfrutarás de un día completo de relajación y diversión en el Caribe colombiano."
     }
   ];
@@ -46,26 +38,32 @@ export default function Pasadia() {
       src: "/images/islas-rosario/rosario-video-1.mp4",
       title: "Aguas Cristalinas - Islas del Rosario",
       description: "Descubre la belleza natural de las aguas cristalinas en las paradisíacas Islas del Rosario. Un destino único para relajarse y conectar con la naturaleza.",
-      thumbnail: "/images/video-thumb-1.jpeg"
+      thumbnail: "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
     },
     {
       src: "/images/islas-rosario/rosario-video-2.mp4",
       title: "Coral Sand - Experiencia Completa",
       description: "Vive la experiencia completa en Coral Sand con todas las comodidades y actividades incluidas en tu pasadía.",
-      thumbnail: "/images/video-thumb-2.jpeg"
+      thumbnail: "https://images.unsplash.com/photo-1540979388789-6cee28a1cdc9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
     },
     {
       src: "/images/islas-rosario/rosario-video-3.mp4",
       title: "Actividades y Relajación",
       description: "Disfruta de múltiples actividades: tour en bicicleta, playa libre, piscina y todas las instalaciones del hotel.",
-      thumbnail: "/images/video-thumb-3.jpeg"
+      thumbnail: "https://images.unsplash.com/photo-1559827260-dc66d52bef19?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
     },
     {
       src: "/images/islas-rosario/rosario-video-4.mp4",
       title: "Paraíso Caribeño",
       description: "Un día completo de tranquilidad y diversión en el paraíso caribeño de las Islas del Rosario.",
-      thumbnail: "/images/video-thumb-4.jpeg"
+      thumbnail: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
     }
+  ];
+
+  // Combinar imágenes y videos en una sola galería
+  const galleryItems = [
+    ...images.map(img => ({ type: 'image' as const, src: img.src })),
+    ...videos.map(video => ({ type: 'video' as const, src: video.src, thumbnail: video.thumbnail }))
   ];
 
   return (
@@ -92,27 +90,27 @@ export default function Pasadia() {
             <div className="text-center fade-in-up">
               <div className="mb-6">
                 <span className="inline-block px-6 py-2 bg-gold-500/20 text-gold-200 rounded-full text-sm font-semibold tracking-wide border border-gold-400/30 backdrop-blur-sm">
-                  🏝️ PASADÍA EXCLUSIVA
+                  🏝️ {t('pasadia.hero.badge')}
                 </span>
               </div>
               
               <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
-                Pasadía
-                <span className="block text-gradient-hero">Coral Sand</span>
+                {t('pasadia.hero.title')}
+                <span className="block text-gradient-hero">{t('pasadia.hero.subtitle')}</span>
               </h1>
               
               <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto text-gray-200 leading-relaxed">
-                Un día de tranquilidad frente al mar en las paradisíacas Islas del Rosario
+                {t('pasadia.hero.description')}
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
                 <div className="flex items-center space-x-2 text-gold-300">
                   <MapPinIcon className="h-5 w-5" />
-                  <span>Islas del Rosario, Cartagena</span>
+                  <span>{t('pasadia.hero.location')}</span>
                 </div>
                 <div className="flex items-center space-x-2 text-blue-300">
                   <CurrencyDollarIcon className="h-5 w-5" />
-                  <span>$280.000 COP</span>
+                  <span>{t('pasadia.hero.price')}</span>
                 </div>
               </div>
             </div>
@@ -127,21 +125,36 @@ export default function Pasadia() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16 fade-in-up">
               <div className="bg-white rounded-xl p-6 shadow-lg border border-blue-100">
                 <ClockIcon className="h-8 w-8 text-blue-500 mb-3" />
-                <h3 className="font-semibold text-dark-800 mb-1">Horario</h3>
-                <p className="text-gray-600 text-sm">Salida: 8:45 a.m.</p>
-                <p className="text-gray-600 text-sm">Regreso: 3:00 p.m.</p>
+                <h3 className="font-semibold text-dark-800 mb-1">{t('pasadia.schedule.title')}</h3>
+                <p className="text-gray-600 text-sm">{t('pasadia.schedule.departure')}</p>
+                <p className="text-gray-600 text-sm">{t('pasadia.schedule.return')}</p>
               </div>
               <div className="bg-white rounded-xl p-6 shadow-lg border border-gold-100">
                 <MapPinIcon className="h-8 w-8 text-gold-500 mb-3" />
-                <h3 className="font-semibold text-dark-800 mb-1">Punto de Encuentro</h3>
-                <p className="text-gray-600 text-sm">Muelle La Bodeguita</p>
-                <p className="text-gray-600 text-sm">Puerta #1 - 7:45 a.m.</p>
+                <h3 className="font-semibold text-dark-800 mb-1">{t('pasadia.meeting.title')}</h3>
+                <p className="text-gray-600 text-sm">{t('pasadia.meeting.location')}</p>
+                <p className="text-gray-600 text-sm">{t('pasadia.meeting.gate')}</p>
               </div>
               <div className="bg-white rounded-xl p-6 shadow-lg border border-blue-100">
-                <CurrencyDollarIcon className="h-8 w-8 text-blue-500 mb-3" />
-                <h3 className="font-semibold text-dark-800 mb-1">Precio</h3>
-                <p className="text-2xl font-bold text-gold-600">$280.000</p>
-                <p className="text-gray-600 text-sm">COP por persona</p>
+                <div className="flex items-center space-x-2 mb-3">
+                  <svg className="h-8 w-8 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                  </svg>
+                  <h3 className="font-semibold text-dark-800">{t('pasadia.price.title')}</h3>
+                </div>
+                <p className="text-lg font-bold text-green-600 mb-2">{t('pasadia.price.amount')}</p>
+                <p className="text-gray-600 text-sm mb-4">{t('pasadia.price.currency')}</p>
+                <a 
+                  href="https://wa.me/573236882227?text=Hola! Me interesa el pasadía a las Islas del Rosario. ¿Podrían darme información sobre precios y disponibilidad?"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center space-x-2 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg transition-colors duration-200 text-sm font-medium"
+                >
+                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/>
+                  </svg>
+                  <span>{t('pasadia.price.whatsapp.cta')}</span>
+                </a>
               </div>
             </div>
 
@@ -154,7 +167,7 @@ export default function Pasadia() {
                 <div className="bg-white rounded-2xl shadow-xl border border-gold-200/50 p-8 fade-in-up">
                   <h2 className="text-3xl font-bold text-dark-900 mb-6 flex items-center">
                     <CheckCircleIcon className="h-8 w-8 text-gold-500 mr-3" />
-                    ¿Qué Incluye?
+                    {t('pasadia.includes.title')}
                   </h2>
                   
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -162,32 +175,32 @@ export default function Pasadia() {
                       <div className="flex items-start space-x-3">
                         <CheckCircleIcon className="h-5 w-5 text-gold-500 mt-0.5 flex-shrink-0" />
                         <div>
-                          <p className="font-semibold text-dark-800">Transporte en lancha</p>
-                          <p className="text-gray-600 text-sm">Ida y regreso desde Cartagena</p>
+                          <p className="font-semibold text-dark-800">{t('pasadia.transport.boat')}</p>
+                          <p className="text-gray-600 text-sm">{t('pasadia.transport.description')}</p>
                         </div>
                       </div>
                       
                       <div className="flex items-start space-x-3">
                         <CheckCircleIcon className="h-5 w-5 text-gold-500 mt-0.5 flex-shrink-0" />
                         <div>
-                          <p className="font-semibold text-dark-800">Transporte al oceanario</p>
-                          <p className="text-gray-600 text-sm">No incluye entrada</p>
+                          <p className="font-semibold text-dark-800">{t('pasadia.transport.oceanarium')}</p>
+                          <p className="text-gray-600 text-sm">{t('pasadia.transport.note')}</p>
                         </div>
                       </div>
                       
                       <div className="flex items-start space-x-3">
                         <CheckCircleIcon className="h-5 w-5 text-gold-500 mt-0.5 flex-shrink-0" />
                         <div>
-                          <p className="font-semibold text-dark-800">Cóctel de bienvenida</p>
-                          <p className="text-gray-600 text-sm">Al llegar a la isla</p>
+                          <p className="font-semibold text-dark-800">{t('pasadia.welcome.cocktail')}</p>
+                          <p className="text-gray-600 text-sm">{t('pasadia.welcome.description')}</p>
                         </div>
                       </div>
                       
                       <div className="flex items-start space-x-3">
                         <CheckCircleIcon className="h-5 w-5 text-gold-500 mt-0.5 flex-shrink-0" />
                         <div>
-                          <p className="font-semibold text-dark-800">Tour en bicicleta</p>
-                          <p className="text-gray-600 text-sm">Por la isla (disponible por turnos)</p>
+                          <p className="font-semibold text-dark-800">{t('pasadia.bike.tour')}</p>
+                          <p className="text-gray-600 text-sm">{t('pasadia.bike.description')}</p>
                         </div>
                       </div>
                     </div>
@@ -196,60 +209,25 @@ export default function Pasadia() {
                       <div className="flex items-start space-x-3">
                         <CheckCircleIcon className="h-5 w-5 text-gold-500 mt-0.5 flex-shrink-0" />
                         <div>
-                          <p className="font-semibold text-dark-800">Asoleadora en la playa</p>
-                          <p className="text-gray-600 text-sm">Playa libre para disfrutar</p>
+                          <p className="font-semibold text-dark-800">{t('pasadia.beach.access')}</p>
+                          <p className="text-gray-600 text-sm">{t('pasadia.beach.description')}</p>
                         </div>
                       </div>
                       
                       <div className="flex items-start space-x-3">
                         <CheckCircleIcon className="h-5 w-5 text-gold-500 mt-0.5 flex-shrink-0" />
                         <div>
-                          <p className="font-semibold text-dark-800">Almuerzo completo</p>
-                          <p className="text-gray-600 text-sm">Menú con 5 opciones disponibles</p>
+                          <p className="font-semibold text-dark-800">{t('pasadia.lunch.complete')}</p>
+                          <p className="text-gray-600 text-sm">{t('pasadia.lunch.description')}</p>
                         </div>
                       </div>
                       
                       <div className="flex items-start space-x-3">
                         <CheckCircleIcon className="h-5 w-5 text-gold-500 mt-0.5 flex-shrink-0" />
                         <div>
-                          <p className="font-semibold text-dark-800">Uso de instalaciones</p>
-                          <p className="text-gray-600 text-sm">Hotel Coral Sand: piscina, baños</p>
+                          <p className="font-semibold text-dark-800">{t('pasadia.facilities.use')}</p>
+                          <p className="text-gray-600 text-sm">{t('pasadia.facilities.description')}</p>
                         </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Menú de Almuerzo */}
-                <div className="bg-white rounded-2xl shadow-xl border border-blue-200/50 p-8 fade-in-up">
-                  <h2 className="text-3xl font-bold text-dark-900 mb-6">
-                    🍽️ Menú de Almuerzo
-                  </h2>
-                  <p className="text-gray-600 mb-6">Elige entre 5 deliciosas opciones:</p>
-                  
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="space-y-3">
-                      <div className="flex items-center space-x-3 p-3 bg-gold-50 rounded-lg">
-                        <span className="text-2xl">🍗</span>
-                        <span className="font-medium text-dark-800">Pechuga de pollo</span>
-                      </div>
-                      <div className="flex items-center space-x-3 p-3 bg-blue-50 rounded-lg">
-                        <span className="text-2xl">🐟</span>
-                        <span className="font-medium text-dark-800">Mojarra frita</span>
-                      </div>
-                      <div className="flex items-center space-x-3 p-3 bg-gold-50 rounded-lg">
-                        <span className="text-2xl">🥩</span>
-                        <span className="font-medium text-dark-800">Chuleta de cerdo</span>
-                      </div>
-                    </div>
-                    <div className="space-y-3">
-                      <div className="flex items-center space-x-3 p-3 bg-blue-50 rounded-lg">
-                        <span className="text-2xl">🍝</span>
-                        <span className="font-medium text-dark-800">Pasta con vegetales</span>
-                      </div>
-                      <div className="flex items-center space-x-3 p-3 bg-gold-50 rounded-lg">
-                        <span className="text-2xl">🦐</span>
-                        <span className="font-medium text-dark-800">Arroz con camarones</span>
                       </div>
                     </div>
                   </div>
@@ -258,9 +236,9 @@ export default function Pasadia() {
                 {/* Galería de Fotos y Videos */}
                 <div className="bg-white rounded-2xl shadow-xl border border-blue-200/50 p-8 fade-in-up">
                   <h2 className="text-3xl font-bold text-dark-900 mb-6">
-                    📸 Galería - Islas del Rosario
+                    📸 {t('pasadia.gallery.title')}
                   </h2>
-                  <p className="text-gray-600 mb-8">Descubre la belleza natural de las Islas del Rosario</p>
+                  <p className="text-gray-600 mb-8">{t('pasadia.gallery.subtitle')}</p>
                   
                   {/* Grid de Galería */}
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -268,7 +246,7 @@ export default function Pasadia() {
                     {/* Foto 1 - Clickeable */}
                     <div 
                       className="group relative overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-all duration-500 cursor-pointer image-thumbnail"
-                      onClick={() => setSelectedImage(images[0])}
+                      onClick={() => setSelectedGalleryIndex(0)}
                     >
                       <img 
                         src="/images/islas-rosario/rosario-1.jpeg" 
@@ -277,8 +255,8 @@ export default function Pasadia() {
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-dark-900/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                         <div className="absolute bottom-4 left-4 text-white">
-                          <p className="font-semibold drop-shadow-lg">Aguas Cristalinas</p>
-                          <p className="text-sm opacity-90 drop-shadow-lg">Haz clic para ampliar</p>
+                          <p className="font-semibold drop-shadow-lg">{t('pasadia.gallery.photo1')}</p>
+                          <p className="text-sm opacity-90 drop-shadow-lg">{t('pasadia.gallery.photo1.subtitle')}</p>
                         </div>
                       </div>
                       {/* Icono de ampliar */}
@@ -294,7 +272,7 @@ export default function Pasadia() {
                     {/* Foto 2 - Clickeable */}
                     <div 
                       className="group relative overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-all duration-500 cursor-pointer image-thumbnail"
-                      onClick={() => setSelectedImage(images[1])}
+                      onClick={() => setSelectedGalleryIndex(1)}
                     >
                       <img 
                         src="/images/islas-rosario/rosario-2.jpeg" 
@@ -303,8 +281,8 @@ export default function Pasadia() {
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-dark-900/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                         <div className="absolute bottom-4 left-4 text-white">
-                          <p className="font-semibold drop-shadow-lg">Paraíso Caribeño</p>
-                          <p className="text-sm opacity-90 drop-shadow-lg">Haz clic para ampliar</p>
+                          <p className="font-semibold drop-shadow-lg">{t('pasadia.gallery.photo2')}</p>
+                          <p className="text-sm opacity-90 drop-shadow-lg">{t('pasadia.gallery.photo2.subtitle')}</p>
                         </div>
                       </div>
                       {/* Icono de ampliar */}
@@ -322,7 +300,7 @@ export default function Pasadia() {
                       <div 
                         key={index}
                         className="group relative overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-all duration-500 cursor-pointer video-thumbnail"
-                        onClick={() => setSelectedVideo(video)}
+                        onClick={() => setSelectedGalleryIndex(images.length + index)}
                       >
                         {/* Thumbnail del video */}
                         <div className="relative w-full h-64 bg-black rounded-xl overflow-hidden">
@@ -345,14 +323,14 @@ export default function Pasadia() {
                           {/* Información del video */}
                           <div className="absolute bottom-4 left-4 text-white z-10">
                             <p className="font-semibold text-sm drop-shadow-lg">{video.title}</p>
-                            <p className="text-xs opacity-90 drop-shadow-lg">Haz clic para reproducir</p>
+                            <p className="text-xs opacity-90 drop-shadow-lg">{t('gallery.click.play')}</p>
                           </div>
                           
                           {/* Badge de video */}
                           <div className="absolute top-4 right-4 z-10">
                             <span className="bg-gradient-to-r from-gold-500 to-gold-600 text-white px-3 py-1 rounded-full text-xs font-semibold flex items-center space-x-1 shadow-lg">
                               <PlayIcon className="h-3 w-3" />
-                              <span>Video HD</span>
+                              <span>{t('pasadia.gallery.video.badge')}</span>
                             </span>
                           </div>
 
@@ -365,7 +343,7 @@ export default function Pasadia() {
 
                   {/* Botón para ver más */}
                   <div className="text-center mt-8">
-                    <p className="text-gray-600 mb-4">¿Te gusta lo que ves? ¡Reserva tu pasadía ahora!</p>
+                    <p className="text-gray-600 mb-4">{t('pasadia.gallery.cta')}</p>
                     <a 
                       href="https://wa.me/573236882227?text=¡Hola!%20He%20visto%20la%20galería%20de%20las%20Islas%20del%20Rosario%20y%20me%20encanta.%20Quiero%20reservar%20la%20pasadía%20Coral%20Sand."
                       target="_blank"
@@ -373,8 +351,43 @@ export default function Pasadia() {
                       className="inline-flex items-center space-x-2 bg-gradient-to-r from-gold-500 to-gold-600 hover:from-gold-600 hover:to-gold-700 text-white font-semibold py-3 px-8 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
                     >
                       <span className="text-xl">📱</span>
-                      <span>¡Quiero Reservar!</span>
+                      <span>{t('pasadia.reserve')}</span>
                     </a>
+                  </div>
+                </div>
+
+                {/* Menú de Almuerzo */}
+                <div className="bg-white rounded-2xl shadow-xl border border-blue-200/50 p-8 fade-in-up">
+                  <h2 className="text-3xl font-bold text-dark-900 mb-6">
+                    🍽️ {t('pasadia.menu.title')}
+                  </h2>
+                  <p className="text-gray-600 mb-6">{t('pasadia.menu.subtitle')}</p>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="space-y-3">
+                      <div className="flex items-center space-x-3 p-3 bg-gold-50 rounded-lg">
+                        <span className="text-2xl">🍗</span>
+                        <span className="font-medium text-dark-800">{t('pasadia.menu.chicken')}</span>
+                      </div>
+                      <div className="flex items-center space-x-3 p-3 bg-blue-50 rounded-lg">
+                        <span className="text-2xl">🐟</span>
+                        <span className="font-medium text-dark-800">{t('pasadia.menu.fish')}</span>
+                      </div>
+                      <div className="flex items-center space-x-3 p-3 bg-gold-50 rounded-lg">
+                        <span className="text-2xl">🥩</span>
+                        <span className="font-medium text-dark-800">{t('pasadia.menu.pork')}</span>
+                      </div>
+                    </div>
+                    <div className="space-y-3">
+                      <div className="flex items-center space-x-3 p-3 bg-blue-50 rounded-lg">
+                        <span className="text-2xl">🍝</span>
+                        <span className="font-medium text-dark-800">{t('pasadia.menu.pasta')}</span>
+                      </div>
+                      <div className="flex items-center space-x-3 p-3 bg-gold-50 rounded-lg">
+                        <span className="text-2xl">🦐</span>
+                        <span className="font-medium text-dark-800">{t('pasadia.menu.rice')}</span>
+                      </div>
+                    </div>
                   </div>
                 </div>
 
@@ -382,10 +395,10 @@ export default function Pasadia() {
                 <div className="bg-white rounded-2xl shadow-xl border border-gold-200/50 p-8 fade-in-up">
                   <h2 className="text-3xl font-bold text-dark-900 mb-6 flex items-center">
                     <MapPinIcon className="h-8 w-8 text-gold-500 mr-3" />
-                    Ubicación - Islas del Rosario
+                    {t('pasadia.location.title')}
                   </h2>
                   <p className="text-gray-600 mb-6">
-                    Encuentra la ubicación exacta de nuestro destino paradisíaco en las Islas del Rosario
+                    {t('pasadia.location.subtitle')}
                   </p>
                   
                   {/* Información de Ubicación */}
@@ -394,39 +407,39 @@ export default function Pasadia() {
                       <div className="flex items-start space-x-3">
                         <MapPinIcon className="h-5 w-5 text-gold-500 mt-1 flex-shrink-0" />
                         <div>
-                          <p className="font-semibold text-dark-800">Destino</p>
-                          <p className="text-gray-600">Coral Sand - Islas del Rosario</p>
+                          <p className="font-semibold text-dark-800">{t('pasadia.location.destination')}</p>
+                          <p className="text-gray-600">{t('pasadia.location.destination.name')}</p>
                         </div>
                       </div>
                       
                       <div className="flex items-start space-x-3">
                         <ClockIcon className="h-5 w-5 text-blue-500 mt-1 flex-shrink-0" />
                         <div>
-                          <p className="font-semibold text-dark-800">Tiempo de viaje</p>
-                          <p className="text-gray-600">45 minutos en lancha desde Cartagena</p>
+                          <p className="font-semibold text-dark-800">{t('pasadia.location.travel.time')}</p>
+                          <p className="text-gray-600">{t('pasadia.location.travel.description')}</p>
                         </div>
                       </div>
                       
                       <div className="flex items-start space-x-3">
                         <span className="text-gold-500 mt-1 text-lg">🚤</span>
                         <div>
-                          <p className="font-semibold text-dark-800">Punto de partida</p>
-                          <p className="text-gray-600">Muelle La Bodeguita, Puerta #1</p>
+                          <p className="font-semibold text-dark-800">{t('pasadia.location.departure')}</p>
+                          <p className="text-gray-600">{t('pasadia.location.departure.name')}</p>
                         </div>
                       </div>
                     </div>
                     
                     <div className="space-y-4">
                       <div className="bg-gradient-to-r from-gold-50 to-blue-50 rounded-xl p-4">
-                        <h3 className="font-semibold text-dark-800 mb-2">📍 Coordenadas</h3>
-                        <p className="text-gray-600 text-sm">Islas del Rosario</p>
-                        <p className="text-gray-600 text-sm">Cartagena, Colombia</p>
+                        <h3 className="font-semibold text-dark-800 mb-2">📍 {t('pasadia.location.coordinates')}</h3>
+                        <p className="text-gray-600 text-sm">{t('pasadia.location.coordinates.name')}</p>
+                        <p className="text-gray-600 text-sm">{t('pasadia.location.coordinates.country')}</p>
                       </div>
                       
                       <div className="bg-gradient-to-r from-blue-50 to-gold-50 rounded-xl p-4">
-                        <h3 className="font-semibold text-dark-800 mb-2">🌊 Acceso</h3>
-                        <p className="text-gray-600 text-sm">Solo por vía marítima</p>
-                        <p className="text-gray-600 text-sm">Transporte incluido en el tour</p>
+                        <h3 className="font-semibold text-dark-800 mb-2">🌊 {t('pasadia.location.access')}</h3>
+                        <p className="text-gray-600 text-sm">{t('pasadia.location.access.sea')}</p>
+                        <p className="text-gray-600 text-sm">{t('pasadia.location.access.included')}</p>
                       </div>
                     </div>
                   </div>
@@ -456,7 +469,7 @@ export default function Pasadia() {
                         className="bg-white hover:bg-gray-50 text-dark-800 px-4 py-2 rounded-lg shadow-lg transition-colors duration-300 flex items-center space-x-2 text-sm font-medium"
                       >
                         <MapPinIcon className="h-4 w-4" />
-                        <span>Abrir en Google Maps</span>
+                        <span>{t('pasadia.location.maps')}</span>
                       </a>
                     </div>
                     
@@ -469,29 +482,29 @@ export default function Pasadia() {
                         className="bg-gold-500 hover:bg-gold-600 text-white px-4 py-2 rounded-lg shadow-lg transition-colors duration-300 flex items-center space-x-2 text-sm font-medium"
                       >
                         <span>🧭</span>
-                        <span>Cómo llegar</span>
+                        <span>{t('pasadia.location.directions')}</span>
                       </a>
                     </div>
                   </div>
 
                   {/* Instrucciones de Llegada */}
                   <div className="mt-8 bg-gradient-to-r from-blue-50 to-gold-50 rounded-xl p-6">
-                    <h3 className="text-xl font-bold text-dark-900 mb-4">🧭 Cómo Llegar</h3>
+                    <h3 className="text-xl font-bold text-dark-900 mb-4">🧭 {t('pasadia.directions.title')}</h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div>
-                        <h4 className="font-semibold text-dark-800 mb-2">Desde el Aeropuerto</h4>
+                        <h4 className="font-semibold text-dark-800 mb-2">{t('pasadia.directions.airport')}</h4>
                         <ol className="text-gray-600 text-sm space-y-1 list-decimal list-inside">
-                          <li>Tomar taxi o Uber al Muelle La Bodeguita (20 min)</li>
-                          <li>Dirigirse a la Puerta #1</li>
-                          <li>Presentarse a las 7:45 a.m.</li>
+                          <li>{t('pasadia.directions.airport.1')}</li>
+                          <li>{t('pasadia.directions.airport.2')}</li>
+                          <li>{t('pasadia.directions.airport.3')}</li>
                         </ol>
                       </div>
                       <div>
-                        <h4 className="font-semibold text-dark-800 mb-2">Desde el Centro Histórico</h4>
+                        <h4 className="font-semibold text-dark-800 mb-2">{t('pasadia.directions.center')}</h4>
                         <ol className="text-gray-600 text-sm space-y-1 list-decimal list-inside">
-                          <li>Caminar o tomar taxi al Muelle (10 min)</li>
-                          <li>Buscar la Puerta #1 de La Bodeguita</li>
-                          <li>Llegar puntualmente a las 7:45 a.m.</li>
+                          <li>{t('pasadia.directions.center.1')}</li>
+                          <li>{t('pasadia.directions.center.2')}</li>
+                          <li>{t('pasadia.directions.center.3')}</li>
                         </ol>
                       </div>
                     </div>
@@ -499,7 +512,7 @@ export default function Pasadia() {
                     <div className="mt-4 p-4 bg-white rounded-lg border border-gold-200">
                       <p className="text-sm text-gray-700 mb-3">
                         <span className="font-semibold text-gold-600">💡 Consejo:</span> 
-                        Te recomendamos llegar 15 minutos antes para el check-in y recibir las instrucciones de seguridad.
+                        {t('pasadia.directions.tip')}
                       </p>
                       
                       <div className="flex flex-col sm:flex-row gap-3">
@@ -510,7 +523,7 @@ export default function Pasadia() {
                           className="flex items-center justify-center space-x-2 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg transition-colors duration-300 text-sm font-medium"
                         >
                           <span>📱</span>
-                          <span>Ayuda con direcciones</span>
+                          <span>{t('pasadia.directions.help')}</span>
                         </a>
                         
                         <a
@@ -520,7 +533,7 @@ export default function Pasadia() {
                           className="flex items-center justify-center space-x-2 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-colors duration-300 text-sm font-medium"
                         >
                           <MapPinIcon className="h-4 w-4" />
-                          <span>Ver en Google Maps</span>
+                          <span>{t('pasadia.directions.maps')}</span>
                         </a>
                       </div>
                     </div>
@@ -530,7 +543,7 @@ export default function Pasadia() {
                 {/* Itinerario */}
                 <div className="bg-white rounded-2xl shadow-xl border border-gold-200/50 p-8 fade-in-up">
                   <h2 className="text-3xl font-bold text-dark-900 mb-6">
-                    📅 Itinerario del Día
+                    📅 {t('pasadia.itinerary.title')}
                   </h2>
                   
                   <div className="space-y-6">
@@ -539,8 +552,8 @@ export default function Pasadia() {
                         7:45
                       </div>
                       <div>
-                        <h3 className="font-semibold text-dark-800 mb-1">Encuentro</h3>
-                        <p className="text-gray-600">Muelle La Bodeguita, Puerta #1</p>
+                        <h3 className="font-semibold text-dark-800 mb-1">{t('pasadia.itinerary.meeting')}</h3>
+                        <p className="text-gray-600">{t('pasadia.itinerary.meeting.location')}</p>
                       </div>
                     </div>
                     
@@ -549,8 +562,8 @@ export default function Pasadia() {
                         8:45
                       </div>
                       <div>
-                        <h3 className="font-semibold text-dark-800 mb-1">Salida</h3>
-                        <p className="text-gray-600">Partida en lancha hacia las Islas del Rosario</p>
+                        <h3 className="font-semibold text-dark-800 mb-1">{t('pasadia.itinerary.departure')}</h3>
+                        <p className="text-gray-600">{t('pasadia.itinerary.departure.description')}</p>
                       </div>
                     </div>
                     
@@ -560,7 +573,7 @@ export default function Pasadia() {
                       </div>
                       <div>
                         <h3 className="font-semibold text-dark-800 mb-1">Regreso</h3>
-                        <p className="text-gray-600">Retorno a Cartagena</p>
+                        <p className="text-gray-600">{t('pasadia.itinerary.return')}</p>
                       </div>
                     </div>
                   </div>
@@ -573,28 +586,30 @@ export default function Pasadia() {
                   <div className="bg-white rounded-2xl shadow-2xl border border-gold-200/50 p-8 fade-in-up">
                     <div className="text-center mb-6">
                       <div className="flex items-center justify-center space-x-2 mb-2">
-                        <span className="text-3xl font-bold text-gold-600">$280.000</span>
-                        <span className="text-gray-500">COP</span>
+                        <svg className="w-8 h-8 text-green-500" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/>
+                        </svg>
+                        <span className="text-2xl font-bold text-green-600">{t('pasadia.price.availability')}</span>
                       </div>
-                      <p className="text-gray-600">por persona</p>
+                      <p className="text-gray-600">{t('pasadia.price.whatsapp')}</p>
                     </div>
 
                     <div className="space-y-4 mb-6">
                       <div className="flex items-center justify-between py-2 border-b border-gray-100">
-                        <span className="text-gray-600">Duración:</span>
-                        <span className="font-medium">1 día completo</span>
+                        <span className="text-gray-600">{t('pasadia.sidebar.duration')}</span>
+                        <span className="font-medium">{t('pasadia.sidebar.duration.time')}</span>
                       </div>
                       <div className="flex items-center justify-between py-2 border-b border-gray-100">
-                        <span className="text-gray-600">Salida:</span>
+                        <span className="text-gray-600">{t('pasadia.sidebar.departure')}</span>
                         <span className="font-medium">8:45 a.m.</span>
                       </div>
                       <div className="flex items-center justify-between py-2 border-b border-gray-100">
-                        <span className="text-gray-600">Regreso:</span>
+                        <span className="text-gray-600">{t('pasadia.sidebar.return')}</span>
                         <span className="font-medium">3:00 p.m.</span>
                       </div>
                       <div className="flex items-center justify-between py-2">
-                        <span className="text-gray-600">Ubicación:</span>
-                        <span className="font-medium">Islas del Rosario</span>
+                        <span className="text-gray-600">{t('pasadia.sidebar.location')}</span>
+                        <span className="font-medium">{t('pasadia.sidebar.location.name')}</span>
                       </div>
                     </div>
 
@@ -606,14 +621,14 @@ export default function Pasadia() {
                     >
                       <span className="flex items-center justify-center space-x-2">
                         <span className="text-xl">📱</span>
-                        <span>Reservar por WhatsApp</span>
+                        <span>{t('pasadia.sidebar.reserve.whatsapp')}</span>
                       </span>
                     </a>
 
                     {/* Información de Reserva Actualizada */}
                     <div className="bg-gradient-to-r from-gold-500 to-gold-600 rounded-xl p-4 mb-4 text-white text-center">
-                      <p className="font-bold text-lg mb-2">¡RESERVA YA!</p>
-                      <p className="text-sm mb-3">Información y RESERVAS</p>
+                      <p className="font-bold text-lg mb-2">{t('pasadia.sidebar.reserve.title')}</p>
+                      <p className="text-sm mb-3">{t('pasadia.sidebar.reserve.subtitle')}</p>
                       <a 
                         href="https://wa.me/573236882227?text=Hola,%20me%20interesa%20reservar%20la%20pasadía%20Coral%20Sand%20en%20las%20Islas%20del%20Rosario.%20¿Podrían%20darme%20más%20información?"
                         target="_blank"
@@ -626,7 +641,7 @@ export default function Pasadia() {
                     </div>
 
                     <div className="text-center space-y-2">
-                      <p className="text-sm text-gray-600">¿Necesitas más información?</p>
+                      <p className="text-sm text-gray-600">{t('pasadia.sidebar.info')}</p>
                       <div className="flex flex-col space-y-2">
                         <a 
                           href="https://wa.me/573236882227?text=Hola,%20me%20interesa%20más%20información%20sobre%20la%20pasadía%20Coral%20Sand"
@@ -635,11 +650,11 @@ export default function Pasadia() {
                           className="flex items-center justify-center space-x-2 text-blue-600 hover:text-blue-700"
                         >
                           <span className="text-lg">📱</span>
-                          <span className="text-sm">+57 323 688 2227 (WhatsApp)</span>
+                          <span className="text-sm">{t('pasadia.sidebar.whatsapp')}</span>
                         </a>
-                        <a href="mailto:info@karoba.com" className="flex items-center justify-center space-x-2 text-blue-600 hover:text-blue-700">
+                        <a href="mailto:karoba.wellness@gmail.com" className="flex items-center justify-center space-x-2 text-blue-600 hover:text-blue-700">
                           <EnvelopeIcon className="h-4 w-4" />
-                          <span className="text-sm">info@karoba.com</span>
+                          <span className="text-sm">{t('pasadia.sidebar.email')}</span>
                         </a>
                       </div>
                     </div>
@@ -652,7 +667,7 @@ export default function Pasadia() {
                         className="flex items-center justify-center space-x-2 text-gold-600 hover:text-gold-700 transition-colors"
                       >
                         <MapPinIcon className="h-4 w-4" />
-                        <span className="text-sm font-medium">Ver ubicación en mapa</span>
+                        <span className="text-sm font-medium">{t('pasadia.sidebar.map')}</span>
                       </a>
                     </div>
                   </div>
@@ -662,26 +677,14 @@ export default function Pasadia() {
           </div>
         </section>
 
-        {/* Modal de Video */}
-        {selectedVideo && (
-          <VideoGalleryModal
-            isOpen={!!selectedVideo}
-            onClose={() => setSelectedVideo(null)}
-            videoSrc={selectedVideo.src}
-            title={selectedVideo.title}
-            description={selectedVideo.description}
-            thumbnail={selectedVideo.thumbnail}
-          />
-        )}
-
-        {/* Modal de Imagen */}
-        {selectedImage && (
-          <ImageModal
-            isOpen={!!selectedImage}
-            onClose={() => setSelectedImage(null)}
-            imageSrc={selectedImage.src}
-            title={selectedImage.title}
-            description={selectedImage.description}
+        {/* Modal de Galería Unificado */}
+        {selectedGalleryIndex !== null && (
+          <GalleryModal
+            isOpen={selectedGalleryIndex !== null}
+            onClose={() => setSelectedGalleryIndex(null)}
+            items={galleryItems}
+            currentIndex={selectedGalleryIndex}
+            onNavigate={setSelectedGalleryIndex}
           />
         )}
       </Layout>

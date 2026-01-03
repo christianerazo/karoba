@@ -1,5 +1,31 @@
 import { Router } from 'express';
-import { ApiResponse, Booking, BookingStatus } from '@tourism-app/shared';
+
+interface Booking {
+  id: string;
+  userId: string;
+  destinationId: string;
+  checkIn: Date;
+  checkOut: Date;
+  guests: number;
+  totalPrice: number;
+  status: BookingStatus;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+enum BookingStatus {
+  PENDING = 'pending',
+  CONFIRMED = 'confirmed',
+  CANCELLED = 'cancelled',
+  COMPLETED = 'completed'
+}
+
+interface ApiResponse<T> {
+  success: boolean;
+  data?: T;
+  error?: string;
+  message?: string;
+}
 
 const router = Router();
 

@@ -99,3 +99,13 @@ jspm_packages/
 # Temporary files
 *.tmp
 *.temp
+
+# WhatsApp Web.js cache and auth files
+packages/api/.wwebjs_auth/
+packages/api/.wwebjs_cache/
+.wwebjs_auth/
+.wwebjs_cache/
+
+# Generated HTML files for WhatsApp
+whatsapp-message.html
+whatsapp-notification.html

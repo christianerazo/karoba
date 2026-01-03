@@ -3,15 +3,15 @@
   "version": "1.0.0",
   "description": "App web de turismo con Next.js",
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 3002",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p 3002",
     "lint": "next lint",
     "clean": "rm -rf .next out",
     "test": "jest"
   },
   "dependencies": {
-    "@headlessui/react": "^1.7.0",
+    "@headlessui/react": "^1.7.19",
     "@heroicons/react": "^2.0.0",
     "@tourism-app/shared": "*",
     "@types/bcryptjs": "^2.4.6",

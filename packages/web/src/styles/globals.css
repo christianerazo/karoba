@@ -11,12 +11,48 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&display=swap');
 
 @layer base {
+  /* Asegurar que el header se mantenga fijo - Versión reforzada */
+  .header-fixed {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    z-index: 9999 !important;
+    width: 100vw !important;
+    transform: translateZ(0) !important; /* Forzar aceleración GPU */
+    backface-visibility: hidden !important;
+    will-change: transform !important;
+  }
+
+  /* Prevenir interferencias de otros elementos */
+  * {
+    box-sizing: border-box;
+  }
+
+  /* Asegurar scroll suave sin interferir con el header */
   html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px;
     font-family: 'Inter', sans-serif;
   }
-  
+
+  /* Prevenir que otros elementos interfieran con el header */
   body {
     @apply bg-gradient-to-br from-white via-blue-50 to-gold-50 text-dark-900;
+    padding-top: 0;
+    position: relative;
+    margin: 0;
+  }
+
+  /* Asegurar que el contenido principal no interfiera */
+  main {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Prevenir que elementos con position sticky interfieran */
+  .no-sticky {
+    position: static !important;
   }
 }
 
@@ -462,18 +498,1234 @@
     transform: scale(1.1);
   }
 
-  /* Responsive video sizing */
-  @media (max-width: 768px) {
-    .video-modal-container video {
-      max-width: 95vw !important;
-      max-height: 70vh !important;
+  /* Animaciones estilo Apple para página Nosotros */
+  .animate-fade-in-up {
+    animation: fadeInUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translate3d(0, 60px, 0);
+    }
+    to {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
     }
   }
 
-  @media (max-width: 480px) {
-    .video-modal-container video {
-      max-width: 98vw !important;
-      max-height: 60vh !important;
+  /* Parallax suave */
+  .parallax-element {
+    will-change: transform;
+    transform: translate3d(0, 0, 0);
+  }
+
+  /* Scroll indicator animado */
+  @keyframes scrollIndicator {
+    0%, 20% {
+      transform: translateY(0);
+      opacity: 0;
+    }
+    50% {
+      opacity: 1;
+    }
+    80%, 100% {
+      transform: translateY(10px);
+      opacity: 0;
     }
   }
+
+  .scroll-indicator {
+    animation: scrollIndicator 2s infinite;
+  }
+
+  /* Efectos de hover mejorados */
+  .hover-lift {
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .hover-lift:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+  }
+
+  /* Gradientes animados */
+  .gradient-shift {
+    background-size: 200% 200%;
+    animation: gradientShift 6s ease infinite;
+  }
+
+  @keyframes gradientShift {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  /* Efectos de texto mejorados */
+  .text-reveal {
+    background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.4) 50%, transparent 100%);
+    background-size: 200% 100%;
+    animation: textReveal 2s ease-in-out;
+  }
+
+  /* Language Switch Styles */
+  .language-switch {
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  .language-switch-slider {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 2px 8px rgba(251, 191, 36, 0.3);
+  }
+
+  .language-switch-button {
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .language-switch-button:hover {
+    transform: scale(1.05);
+  }
+
+  .language-switch-button.active {
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  }
+
+  /* Flag animations */
+  .flag-icon {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+  }
+
+  .flag-icon.active {
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+  }
 }
+  /* Animaciones mejoradas estilo Apple */
+  .fade-in-up-improved {
+    opacity: 0;
+    transform: translate3d(0, 60px, 0) scale(0.95);
+    filter: blur(4px);
+    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  
+  .fade-in-up-improved.visible {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+    filter: blur(0px);
+  }
+
+  /* Animación de entrada escalonada mejorada */
+  .animate-stagger-in {
+    animation: staggerInImproved 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  @keyframes staggerInImproved {
+    from {
+      opacity: 0;
+      transform: translate3d(0, 40px, 0) scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+  }
+
+  /* Parallax suave mejorado */
+  .parallax-element-improved {
+    will-change: transform;
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+  }
+
+  /* Scroll indicator animado mejorado */
+  @keyframes scrollIndicatorImproved {
+    0%, 20% {
+      transform: translateY(0) scale(1);
+      opacity: 0;
+    }
+    50% {
+      opacity: 1;
+      transform: translateY(8px) scale(1.1);
+    }
+    80%, 100% {
+      transform: translateY(16px) scale(0.9);
+      opacity: 0;
+    }
+  }
+
+  .scroll-indicator-improved {
+    animation: scrollIndicatorImproved 2.5s ease-in-out infinite;
+  }
+
+  /* Efectos de hover mejorados con micro-interacciones */
+  .hover-lift-improved {
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    transform-origin: center;
+  }
+
+  .hover-lift-improved:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+  }
+
+  /* Gradientes animados mejorados */
+  .gradient-shift-improved {
+    background-size: 300% 300%;
+    animation: gradientShiftImproved 8s ease infinite;
+  }
+
+  @keyframes gradientShiftImproved {
+    0% {
+      background-position: 0% 50%;
+    }
+    25% {
+      background-position: 100% 50%;
+    }
+    50% {
+      background-position: 100% 100%;
+    }
+    75% {
+      background-position: 0% 100%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  /* Efectos de texto mejorados */
+  .text-reveal-improved {
+    background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.4) 50%, transparent 100%);
+    background-size: 200% 100%;
+    animation: textRevealImproved 2.5s ease-in-out;
+  }
+
+  @keyframes textRevealImproved {
+    0% {
+      background-position: -200% 0;
+    }
+    100% {
+      background-position: 200% 0;
+    }
+  }
+
+  /* Animaciones de botones mejoradas */
+  .btn-primary-improved, .btn-gold-improved, .btn-dark-improved {
+    position: relative;
+    overflow: hidden;
+    transform: translateZ(0);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .btn-primary-improved::before, .btn-gold-improved::before, .btn-dark-improved::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s ease;
+  }
+
+  .btn-primary-improved:hover::before, .btn-gold-improved:hover::before, .btn-dark-improved:hover::before {
+    left: 100%;
+  }
+
+  /* Cards con animaciones mejoradas */
+  .card-improved, .card-premium-improved, .card-luxury-improved {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .card-improved:hover, .card-premium-improved:hover, .card-luxury-improved:hover {
+    transform: translateY(-4px) scale(1.01);
+  }
+
+  /* Inputs con micro-interacciones mejoradas */
+  .input-improved {
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    transform: translateZ(0);
+  }
+
+  .input-improved:focus {
+    transform: scale(1.02);
+    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.15);
+  }
+
+  /* Animaciones de carga suaves */
+  .loading-shimmer {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+  }
+
+  @keyframes shimmer {
+    0% {
+      background-position: -200% 0;
+    }
+    100% {
+      background-position: 200% 0;
+    }
+  }
+
+  /* Efectos de partículas flotantes */
+  .floating-particles::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+      radial-gradient(circle at 20% 20%, rgba(251, 191, 36, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 80% 80%, rgba(14, 165, 233, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 40% 60%, rgba(251, 191, 36, 0.05) 0%, transparent 50%);
+    animation: floatingParticles 20s ease-in-out infinite;
+    pointer-events: none;
+  }
+
+  @keyframes floatingParticles {
+    0%, 100% {
+      transform: translate(0, 0) rotate(0deg);
+    }
+    33% {
+      transform: translate(10px, -10px) rotate(120deg);
+    }
+    66% {
+      transform: translate(-5px, 5px) rotate(240deg);
+    }
+  }
+
+  /* Scroll reveal cascade */
+  .scroll-reveal-cascade > * {
+    opacity: 0;
+    transform: translate3d(0, 30px, 0);
+    transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .scroll-reveal-cascade.visible > * {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+
+  .scroll-reveal-cascade.visible > *:nth-child(1) { transition-delay: 0ms; }
+  .scroll-reveal-cascade.visible > *:nth-child(2) { transition-delay: 100ms; }
+  .scroll-reveal-cascade.visible > *:nth-child(3) { transition-delay: 200ms; }
+  .scroll-reveal-cascade.visible > *:nth-child(4) { transition-delay: 300ms; }
+  .scroll-reveal-cascade.visible > *:nth-child(5) { transition-delay: 400ms; }
+
+  /* Mejoras de rendimiento */
+  .gpu-accelerated {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+  }
+
+  /* Transiciones suaves para elementos interactivos */
+  .smooth-interaction {
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform;
+  }
+
+  .smooth-interaction:hover {
+    transform: scale(1.05);
+  }
+
+  .smooth-interaction:active {
+    transform: scale(0.98);
+    transition-duration: 0.1s;
+  }
+
+  /* Animaciones de entrada con blur */
+  .blur-in {
+    opacity: 0;
+    filter: blur(10px);
+    transform: scale(1.1);
+    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .blur-in.visible {
+    opacity: 1;
+    filter: blur(0px);
+    transform: scale(1);
+  }
+
+  /* Efectos de mouse parallax */
+  .mouse-parallax {
+    transition: transform 0.3s ease-out;
+  }
+
+  /* Animaciones de scroll mejoradas */
+  .scroll-fade {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .scroll-fade.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Efectos de profundidad */
+  .depth-effect {
+    box-shadow: 
+      0 1px 3px rgba(0, 0, 0, 0.12),
+      0 1px 2px rgba(0, 0, 0, 0.24);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .depth-effect:hover {
+    box-shadow: 
+      0 14px 28px rgba(0, 0, 0, 0.25),
+      0 10px 10px rgba(0, 0, 0, 0.22);
+    transform: translateY(-2px);
+  }
+  /* Animaciones de fondo mejoradas y más fluidas */
+  .hero-background {
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    will-change: transform, filter;
+    backface-visibility: hidden;
+    perspective: 1000px;
+  }
+
+  .hero-background-smooth {
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  /* Parallax suave para elementos de fondo */
+  .parallax-smooth {
+    will-change: transform;
+    backface-visibility: hidden;
+    transform: translate3d(0, 0, 0);
+    transition: transform 0.1s ease-out;
+  }
+
+  /* Animaciones ondulantes suaves */
+  @keyframes gentleWave {
+    0%, 100% {
+      transform: translateY(0px) rotate(0deg);
+    }
+    25% {
+      transform: translateY(-5px) rotate(1deg);
+    }
+    50% {
+      transform: translateY(0px) rotate(0deg);
+    }
+    75% {
+      transform: translateY(5px) rotate(-1deg);
+    }
+  }
+
+  .gentle-wave {
+    animation: gentleWave 8s ease-in-out infinite;
+  }
+
+  /* Flotación suave para elementos decorativos */
+  @keyframes gentleFloat {
+    0%, 100% {
+      transform: translateY(0px) scale(1);
+    }
+    50% {
+      transform: translateY(-10px) scale(1.02);
+    }
+  }
+
+  .gentle-float {
+    animation: gentleFloat 6s ease-in-out infinite;
+  }
+
+  /* Respiración suave para elementos de lujo */
+  @keyframes gentleBreathe {
+    0%, 100% {
+      transform: scale(1) rotate(0deg);
+      opacity: 0.3;
+    }
+    50% {
+      transform: scale(1.05) rotate(2deg);
+      opacity: 0.5;
+    }
+  }
+
+  .gentle-breathe {
+    animation: gentleBreathe 10s ease-in-out infinite;
+  }
+
+  /* Transiciones suaves para cambios de opacidad */
+  .opacity-transition {
+    transition: opacity 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  /* Filtros suaves para efectos de blur */
+  .blur-transition {
+    transition: filter 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  /* Escalado suave */
+  .scale-transition {
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  /* Movimiento suave para mouse parallax */
+  .mouse-parallax-smooth {
+    transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  /* Optimizaciones de rendimiento para animaciones de fondo */
+  .gpu-optimized {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+    will-change: transform;
+  }
+
+  /* Suavizado de bordes para elementos en movimiento */
+  .smooth-edges {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+  /* Configuración de scroll ultra-fluido */
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px;
+  }
+
+  * {
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+  }
+
+  /* Optimizaciones específicas para scroll fluido */
+  body {
+    overscroll-behavior: none; /* Previene bounce en iOS */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Contenedor principal optimizado */
+  #__next {
+    isolation: isolate; /* Crea un nuevo contexto de apilamiento */
+  }
+
+  /* Optimizaciones para elementos con scroll */
+  .scroll-optimized {
+    contain: layout style paint;
+    will-change: transform;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+  }
+
+  /* Transiciones ultra-suaves */
+  .ultra-smooth {
+    transition: all 0.16s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Parallax ultra-optimizado */
+  .parallax-ultra {
+    will-change: transform;
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    contain: layout style paint;
+  }
+
+  /* Reducir motion para usuarios que lo prefieren */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+    
+    .parallax-ultra {
+      transform: none !important;
+    }
+  }
+
+  /* Optimizaciones específicas para WebKit */
+  @supports (-webkit-backdrop-filter: blur(1px)) {
+    .webkit-optimized {
+      -webkit-transform: translate3d(0, 0, 0);
+      -webkit-backface-visibility: hidden;
+      -webkit-perspective: 1000px;
+    }
+  }
+
+  /* Optimizaciones para Firefox */
+  @-moz-document url-prefix() {
+    .firefox-optimized {
+      transform: translateZ(0);
+    }
+  }
+
+  /* Contenedor de scroll con momentum nativo */
+  .native-scroll {
+    -webkit-overflow-scrolling: touch;
+    overflow-scrolling: touch;
+  }
+
+  /* Elementos que cambian durante el scroll - optimizados */
+  .scroll-element {
+    contain: layout style;
+    will-change: transform, opacity;
+  }
+
+  /* Transiciones de opacidad ultra-suaves */
+  .opacity-ultra-smooth {
+    transition: opacity 0.1s linear;
+  }
+
+  /* Transformaciones ultra-suaves */
+  .transform-ultra-smooth {
+    transition: transform 0.1s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Filtros ultra-suaves */
+  .filter-ultra-smooth {
+    transition: filter 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Contenedor de hero optimizado */
+  .hero-container {
+    contain: layout style paint;
+    isolation: isolate;
+  }
+
+  /* Elementos de fondo optimizados */
+  .background-element {
+    contain: strict;
+    will-change: transform;
+    transform: translateZ(0);
+  }
+
+  /* Elementos decorativos optimizados */
+  .decorative-element {
+    contain: layout style;
+    will-change: transform, opacity;
+    pointer-events: none;
+  }
+
+  /* Optimización para imágenes de fondo */
+  .bg-image-optimized {
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    will-change: transform, filter;
+    contain: layout style paint;
+  }
+
+  /* Desactivar animaciones en elementos fuera de viewport */
+  .intersection-optimized {
+    contain: layout style;
+  }
+
+  .intersection-optimized:not(.visible) {
+    will-change: auto;
+    transform: none;
+  }
+
+  /* Optimización para texto durante scroll */
+  .text-scroll-optimized {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    contain: layout style;
+  }
+
+  /* Contenedor de video optimizado */
+  .video-container-optimized {
+    contain: layout style;
+    will-change: transform;
+  }
+
+  /* Botones optimizados para scroll */
+  .button-scroll-optimized {
+    contain: layout style;
+    will-change: transform, box-shadow;
+  }
+
+  /* Grid optimizado */
+  .grid-scroll-optimized {
+    contain: layout;
+  }
+
+  /* Flexbox optimizado */
+  .flex-scroll-optimized {
+    contain: layout style;
+  }
+  /* Configuración anti-lag para scroll */
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    overscroll-behavior: none;
+    -webkit-overflow-scrolling: touch;
+    transform: translateZ(0); /* Fuerza aceleración GPU */
+  }
+
+  /* Eliminar transiciones complejas que causan lag */
+  .no-lag {
+    will-change: auto;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+
+  /* Simplificar parallax para evitar lag */
+  .simple-parallax {
+    will-change: transform;
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+  }
+
+  /* Optimizar elementos de fondo */
+  .bg-optimized {
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    will-change: transform;
+    transform: translateZ(0);
+  }
+
+  /* Transiciones ultra-rápidas para evitar lag */
+  .fast-transition {
+    transition: all 0.2s ease-out;
+  }
+
+  /* Elementos que no deben animar durante scroll */
+  .scroll-static {
+    will-change: auto;
+    transform: none;
+  }
+
+  /* Contenedor principal optimizado */
+  .main-container {
+    contain: layout style;
+    isolation: isolate;
+  }
+
+  /* Reducir complejidad de blur */
+  .simple-blur {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  /* Optimizar gradientes */
+  .simple-gradient {
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.8) 0%, rgba(30, 58, 138, 0.7) 100%);
+  }
+
+  /* Elementos decorativos simplificados */
+  .decorative-simple {
+    opacity: 0.3;
+    pointer-events: none;
+    will-change: auto;
+  }
+
+  /* Hover effects simplificados */
+  .hover-simple:hover {
+    transform: scale(1.02);
+    transition: transform 0.2s ease-out;
+  }
+
+  /* Animaciones de entrada simplificadas */
+  .enter-simple {
+    animation: enterSimple 0.6s ease-out forwards;
+  }
+
+  @keyframes enterSimple {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Desactivar animaciones complejas en dispositivos lentos */
+  @media (max-width: 768px) {
+    .mobile-static {
+      transform: none !important;
+      animation: none !important;
+      transition: none !important;
+    }
+  }
+
+  /* Optimización para dispositivos de baja potencia */
+  @media (prefers-reduced-motion: reduce) {
+    .simple-parallax,
+    .decorative-simple {
+      transform: none !important;
+      animation: none !important;
+    }
+  }
+
+  /* Contenedor de video sin lag */
+  .video-no-lag {
+    contain: strict;
+    will-change: auto;
+  }
+
+  /* Texto optimizado */
+  .text-optimized {
+    text-rendering: optimizeSpeed;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Grid sin lag */
+  .grid-no-lag {
+    contain: layout;
+    will-change: auto;
+  }
+
+  /* Botones optimizados */
+  .btn-no-lag {
+    contain: layout style;
+    will-change: transform;
+  }
+
+  .btn-no-lag:hover {
+    transform: scale(1.05);
+    transition: transform 0.15s ease-out;
+  }
+
+  /* Imágenes optimizadas */
+  .img-optimized {
+    will-change: auto;
+    transform: translateZ(0);
+  }
+
+  /* Sombras simplificadas */
+  .shadow-simple {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  .shadow-simple:hover {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  }
+  /* Configuración anti-lag para scroll - CORREGIDA */
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden; /* Solo ocultar scroll horizontal */
+  }
+
+  body {
+    overscroll-behavior-x: none; /* Solo prevenir bounce horizontal */
+    -webkit-overflow-scrolling: touch;
+    transform: translateZ(0); /* Fuerza aceleración GPU */
+  }
+
+  /* Eliminar completamente el lag en elementos críticos - CORREGIDO */
+  .zero-lag {
+    will-change: auto;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    /* Removido contain: strict que podría bloquear scroll */
+  }
+
+  /* Optimización extrema para parallax - CORREGIDA */
+  .parallax-zero-lag {
+    will-change: transform;
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    /* Removido contain que podría interferir */
+  }
+
+  /* Elementos de fondo ultra-optimizados - CORREGIDOS */
+  .bg-zero-lag {
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    will-change: transform;
+    transform: translateZ(0);
+    /* Removido contain: strict */
+  }
+
+  /* Transiciones instantáneas para elementos críticos */
+  .instant-transition {
+    transition: all 0.1s ease-out;
+  }
+
+  /* Contenedor principal ultra-optimizado - CORREGIDO */
+  .ultra-container {
+    /* Removido contain que podría bloquear scroll */
+    isolation: isolate;
+    will-change: auto;
+  }
+
+  /* Blur ultra-reducido */
+  .minimal-blur {
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+  }
+
+  /* Gradientes estáticos */
+  .static-gradient {
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.8) 0%, rgba(30, 58, 138, 0.7) 100%);
+    will-change: auto;
+  }
+
+  /* Elementos decorativos completamente estáticos */
+  .static-decorative {
+    opacity: 0.3;
+    pointer-events: none;
+    will-change: auto;
+    transform: none;
+    animation: none;
+  }
+
+  /* Hover effects ultra-rápidos */
+  .instant-hover:hover {
+    transform: scale(1.01);
+    transition: transform 0.1s ease-out;
+  }
+
+  /* Desactivar todas las animaciones en dispositivos lentos */
+  @media (max-width: 768px), (prefers-reduced-motion: reduce) {
+    .mobile-zero-lag {
+      transform: none !important;
+      animation: none !important;
+      transition: none !important;
+      will-change: auto !important;
+      /* Removido contain: none */
+    }
+    
+    .parallax-zero-lag {
+      transform: none !important;
+      will-change: auto !important;
+    }
+  }
+
+  /* Optimización para dispositivos de muy baja potencia */
+  @media (max-width: 480px) {
+    .low-power-static {
+      transform: none !important;
+      animation: none !important;
+      transition: none !important;
+      will-change: auto !important;
+      /* Removido contain: none */
+      backdrop-filter: none !important;
+      filter: none !important;
+    }
+  }
+
+  /* Contenedor de video ultra-optimizado - CORREGIDO */
+  .video-zero-lag {
+    /* Removido contain: strict */
+    will-change: auto;
+    isolation: isolate;
+  }
+
+  /* Texto ultra-optimizado */
+  .text-zero-lag {
+    text-rendering: optimizeSpeed;
+    -webkit-font-smoothing: antialiased;
+    /* Removido contain que podría interferir */
+  }
+
+  /* Grid ultra-optimizado - CORREGIDO */
+  .grid-zero-lag {
+    /* Removido contain: layout */
+    will-change: auto;
+    isolation: isolate;
+  }
+
+  /* Botones ultra-optimizados - CORREGIDOS */
+  .btn-zero-lag {
+    /* Removido contain que podría interferir */
+    will-change: transform;
+    isolation: isolate;
+  }
+
+  .btn-zero-lag:hover {
+    transform: scale(1.02);
+    transition: transform 0.1s ease-out;
+  }
+
+  /* Imágenes ultra-optimizadas - CORREGIDAS */
+  .img-zero-lag {
+    will-change: auto;
+    transform: translateZ(0);
+    /* Removido contain que podría interferir */
+  }
+
+  /* Sombras ultra-simplificadas */
+  .shadow-zero-lag {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .shadow-zero-lag:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  }
+
+  /* Configuración de scroll nativo ultra-fluido - CORREGIDA */
+  * {
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+  }
+
+  /* Optimización específica para WebKit (Chrome, Safari) */
+  @supports (-webkit-backdrop-filter: blur(1px)) {
+    .webkit-zero-lag {
+      -webkit-transform: translate3d(0, 0, 0);
+      -webkit-backface-visibility: hidden;
+      -webkit-perspective: 1000px;
+      -webkit-font-smoothing: antialiased;
+    }
+  }
+
+  /* Optimización específica para Firefox */
+  @-moz-document url-prefix() {
+    .firefox-zero-lag {
+      transform: translateZ(0);
+      -moz-osx-font-smoothing: grayscale;
+    }
+  }
+
+  /* Configuración de viewport para móviles */
+  @media (max-width: 768px) {
+    html {
+      -webkit-text-size-adjust: 100%;
+      -ms-text-size-adjust: 100%;
+    }
+    
+    body {
+      -webkit-overflow-scrolling: touch;
+      overflow-scrolling: touch;
+    }
+  }
+
+  /* Optimización para pantallas de alta densidad */
+  @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .retina-optimized {
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+  }
+
+  /* Configuración para scroll momentum nativo */
+  .native-momentum {
+    -webkit-overflow-scrolling: touch;
+    overflow-scrolling: touch;
+  }
+
+  /* Elementos que cambian durante el scroll - ultra-optimizados - CORREGIDOS */
+  .scroll-element-zero-lag {
+    /* Removido contain que podría bloquear scroll */
+    will-change: transform, opacity;
+    isolation: isolate;
+  }
+
+  /* Transiciones de opacidad ultra-rápidas */
+  .opacity-zero-lag {
+    transition: opacity 0.05s linear;
+  }
+
+  /* Transformaciones ultra-rápidas */
+  .transform-zero-lag {
+    transition: transform 0.05s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Filtros ultra-rápidos */
+  .filter-zero-lag {
+    transition: filter 0.1s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Contenedor de hero ultra-optimizado - CORREGIDO */
+  .hero-zero-lag {
+    /* Removido contain que podría bloquear scroll */
+    isolation: isolate;
+    will-change: auto;
+  }
+
+  /* Elementos de fondo ultra-optimizados - CORREGIDOS */
+  .background-zero-lag {
+    /* Removido contain: strict */
+    will-change: transform;
+    transform: translateZ(0);
+    isolation: isolate;
+  }
+
+  /* Elementos decorativos ultra-optimizados - CORREGIDOS */
+  .decorative-zero-lag {
+    /* Removido contain que podría interferir */
+    will-change: auto;
+    pointer-events: none;
+    isolation: isolate;
+  }
+
+  /* Desactivar animaciones en elementos fuera de viewport - CORREGIDO */
+  .intersection-zero-lag {
+    /* Removido contain que podría interferir */
+    isolation: isolate;
+  }
+
+  .intersection-zero-lag:not(.visible) {
+    will-change: auto;
+    transform: none;
+    animation: none;
+  }
+
+  /* Configuración de memoria GPU */
+  .gpu-memory-optimized {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+    will-change: transform;
+    /* Removido contain: strict */
+  }
+
+  /* Configuración para reducir repaints - CORREGIDA */
+  .no-repaint {
+    /* Removido contain que podría bloquear scroll */
+    isolation: isolate;
+  }
+
+  /* Configuración para reducir reflows - CORREGIDA */
+  .no-reflow {
+    /* Removido contain: layout */
+    will-change: auto;
+  }
+  /* Animaciones CSS simples y ligeras para reemplazar ScrollReveal */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeInDown {
+    from {
+      opacity: 0;
+      transform: translateY(-30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes slideInLeft {
+    from {
+      opacity: 0;
+      transform: translateX(-30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes slideInRight {
+    from {
+      opacity: 0;
+      transform: translateX(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes scaleIn {
+    from {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  /* Clases de animación simples */
+  .animate-fade-in {
+    animation: fadeIn 0.6s ease-out forwards;
+    opacity: 0;
+  }
+
+  .animate-fade-in-up {
+    animation: fadeInUp 0.8s ease-out forwards;
+    opacity: 0;
+  }
+
+  .animate-fade-in-down {
+    animation: fadeInDown 0.8s ease-out forwards;
+    opacity: 0;
+  }
+
+  .animate-slide-in-left {
+    animation: slideInLeft 0.8s ease-out forwards;
+    opacity: 0;
+  }
+
+  .animate-slide-in-right {
+    animation: slideInRight 0.8s ease-out forwards;
+    opacity: 0;
+  }
+
+  .animate-scale-in {
+    animation: scaleIn 0.6s ease-out forwards;
+    opacity: 0;
+  }
+
+  /* Desactivar animaciones en dispositivos que prefieren movimiento reducido */
+  @media (prefers-reduced-motion: reduce) {
+    .animate-fade-in,
+    .animate-fade-in-up,
+    .animate-fade-in-down,
+    .animate-slide-in-left,
+    .animate-slide-in-right,
+    .animate-scale-in {
+      animation: none;
+      opacity: 1;
+      transform: none;
+    }
+  }

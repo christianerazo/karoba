@@ -1,5 +1,49 @@
 import { Router } from 'express';
-import { ApiResponse, Destination, PaginatedResponse, DestinationCategory } from '@tourism-app/shared';
+
+interface Destination {
+  id: string;
+  name: string;
+  description: string;
+  country: string;
+  city: string;
+  images: string[];
+  rating: number;
+  price: number;
+  currency: string;
+  coordinates: {
+    latitude: number;
+    longitude: number;
+  };
+  category: DestinationCategory;
+  amenities: string[];
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+enum DestinationCategory {
+  HOTEL = 'hotel',
+  RESTAURANT = 'restaurant',
+  ATTRACTION = 'attraction',
+  ACTIVITY = 'activity',
+  TRANSPORT = 'transport'
+}
+
+interface ApiResponse<T> {
+  success: boolean;
+  data?: T;
+  error?: string;
+  message?: string;
+}
+
+interface PaginatedResponse<T> {
+  data: T[];
+  pagination: {
+    page: number;
+    limit: number;
+    total: number;
+    totalPages: number;
+  };
+}
 
 const router = Router();
 
